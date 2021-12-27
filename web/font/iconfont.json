@@ -1,0 +1,51 @@
+{
+  "id": "3014373",
+  "name": "name",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "386364",
+      "name": "新闻",
+      "font_class": "xinwen",
+      "unicode": "e621",
+      "unicode_decimal": 58913
+    },
+    {
+      "icon_id": "1277689",
+      "name": "会员",
+      "font_class": "huiyuan",
+      "unicode": "e650",
+      "unicode_decimal": 58960
+    },
+    {
+      "icon_id": "6289610",
+      "name": "公司",
+      "font_class": "gongsi",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "7898688",
+      "name": "管理员",
+      "font_class": "guanliyuan",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "9756496",
+      "name": "新闻",
+      "font_class": "xinwen1",
+      "unicode": "e651",
+      "unicode_decimal": 58961
+    },
+    {
+      "icon_id": "12026025",
+      "name": "产品",
+      "font_class": "chanpin",
+      "unicode": "e625",
+      "unicode_decimal": 58917
+    }
+  ]
+}

@@ -1,0 +1,255 @@
+/*-------------------------制定服务------------------------------*/
+.formulate>div{
+    margin: 60px 0;
+    display: flex;
+    justify-content: center;
+    color: #2f2d32;
+}
+.formulate>div:first-child>div:nth-child(1){
+    width: 325px;
+    line-height: 30px;
+    padding: 10px 0;
+}
+.formulate>div>div:nth-child(1){
+    border: 2px solid #dc1c4d;
+    z-index: 1;
+}
+.formulate>div>div:nth-child(2){
+    border: 1px solid #ECECEC;
+    width: 325px;
+    height: 80px;
+    background:#ECECEC;
+    position: relative;
+    top: -10px;
+    left: 20px;
+}
+.formulate>div>div:nth-child(1)>div:nth-child(1){
+    font-size: 25px;
+    font-family: 楷体;
+    text-align: center;
+}
+.formulate>div>div:nth-child(1)>div:nth-child(2){
+    text-align: center;
+}
+.formulate>div>div{
+    position: absolute;
+}
+/*---------------------定制流程内容-----------------------------*/
+/*定制内容盒子*/
+.customized>div:nth-child(2){
+    height: 1158px;
+    /*width: 1349px;*/
+    background-image: url("/dress/image/bg3.jpg") ;
+    background-size:  100% 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 100px;
+}
+/*流程盒子*/
+.customized>div:nth-child(2)>div:nth-child(1){
+    width: 960px;
+    height: 1108px;
+    /*border: 1px solid red;*/
+}
+/*定制流程文本设置*/
+.customized>div:nth-child(2)>div:nth-child(1)>div:nth-child(1){
+    font-size: 30px;
+    font-family: kaiti;
+    font-weight: bold;
+    margin-left: 50px;
+    padding-top: 20px;
+}
+/*定制流程下划线*/
+.customized>div:nth-child(2)>div:nth-child(1)>div:nth-child(1)>div:nth-child(2){
+    border-top: 2px solid red;
+    width: 110px;
+    margin-top: 10px;
+    position: relative;
+}
+/*定制流程*/
+.box{
+    display: flex;
+    flex-wrap: wrap;
+}
+/*黑盒子设置*/
+.box>div:nth-child(1)>div:nth-child(1){
+    background-color: #2F2D32;
+    width: 210px;
+    height: 118px;
+    position: relative;
+    z-index: 1;
+    margin-top: 10px;
+}
+/*---------流程黑盒子-----------*/
+.box>div:nth-child(1)>div:nth-child(1)>div>img{
+    width: 60px;
+    height: 60px;
+}
+/*图片设置*/
+.box>div:nth-child(1)>div:nth-child(1)>div:nth-child(1){
+    display: flex;
+    justify-content: center;
+    padding: 15px 0 10px 0;
+}
+/*文字设置*/
+.box>div:nth-child(1)>div:nth-child(1)>div:nth-child(2){
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+/*------------红色盒子-------*/
+.box>div:nth-child(1)>div:nth-child(2){
+    background-color: #dc1c4d;
+    width: 229px;
+    height: 254px;
+    position: relative;
+    top: -108px;
+    color: white;
+    font-family: weiruangrahei;
+    left: 10px;
+}
+/*站位盒子*/
+.box>div:nth-child(1)>div:nth-child(2)>div:nth-child(1){
+    height: 115px;
+}
+/*红盒子中的文本*/
+.box>div:nth-child(1)>div:nth-child(2)>div:nth-child(2){
+    font-size: 17px;
+    padding: 5px 10px 5px 10px;
+}
+/*---------------------------------*/
+/*箭头图片*/
+.box>div:nth-child(2){
+    position: relative;
+    top: 130px;
+    left: 30px;
+}
+
+/*整体*/
+.fo_box{
+    position: relative;
+    left: 35px;
+}
+.box>div:nth-child(5){
+    left: 76px;
+}
+/*---------流程黑盒子-----------*/
+.fo_box>div:nth-child(1){
+    background-color: #2F2D32;
+    width: 210px;
+    height: 118px;
+    position: relative;
+    z-index: 1;
+    margin-top: 10px;
+}
+/*图片大小设置*/
+.fo_box>div:nth-child(1)>div>img{
+    width: 60px;
+    height: 60px;
+}
+/*图片设置*/
+.fo_box>div:nth-child(1)>div:nth-child(1){
+    display: flex;
+    justify-content: center;
+    padding: 15px 0 10px 0;
+}
+/*文字设置*/
+.fo_box>div:nth-child(1)>div:nth-child(2){
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+}
+/*------------红色盒子-------*/
+.fo_box>div:nth-child(2){
+    background-color: #dc1c4d;
+    width: 229px;
+    height: 232px;
+    position: relative;
+    top: -108px;
+    color: white;
+    font-family: weiruangrahei;
+    left: 10px;
+}
+/*站位盒子*/
+.fo_box>div:nth-child(2)>div:nth-child(1){
+    height: 115px;
+}
+/*红盒子中的文本*/
+.fo_box>div:nth-child(2)>div:nth-child(2){
+    font-size: 17px;
+    padding: 5px 10px 5px 10px;
+}
+/*---------------------------------*/
+/*箭头图片*/
+.box>div:nth-child(4){
+    position: relative;
+    top: 130px;
+    left: 70px;
+}
+.box>div:nth-child(4)>div{
+    position: relative;
+    top: 40px;
+    left: 180px;
+    transform:rotateZ(90deg);
+}
+/*穿衣试穿*/
+.box>div:nth-child(6){
+    left: -1px;
+}
+/*左箭头第一个*/
+.box>div:nth-child(7){
+    margin: 90px 10px 0 20px;
+    transform:rotateY(180deg);
+}
+/*修改换衣*/
+.box>div:nth-child(8){
+    left: 5px;
+}
+/*左箭头第二个*/
+.box>div:nth-child(9){
+    margin: 90px 0px 0 30px;
+    transform:rotateY(180deg);
+}
+/*量取尺寸*/
+.box>div:nth-child(10){
+    left: 15px;
+}
+/*箭头向下*/
+.box>div:nth-child(11){
+    transform:rotateZ(90deg);
+    position: relative;
+    left: -80px;
+    top: -222px;
+}
+/*包裹取件*/
+.box>div:nth-child(12){
+    left: -95px;
+    margin: 20px 0 0 0;
+}
+/*注意事项*/
+.box>div:nth-child(13){
+    background-color: #dc1c4d;
+    width: 682px;
+    height: 217px;
+    position: relative;
+    top: -327px;
+    left: 279px;
+    color: white;
+}
+.box>div:nth-child(13)>div:nth-child(1)>div:nth-child(1){
+    font-weight: bold;
+    font-size: 30px;
+    font-family: fangsong;
+    margin: 10px 30px;
+}
+.box>div:nth-child(13)>div:nth-child(1)>div:nth-child(2){
+    border-top: 2px solid black;
+    width: 108px;
+    margin: 0 30px 20px 35px;
+}
+.box>div:nth-child(13)>div:nth-child(2){
+    font-size: 17px;
+    padding: 0 20px;
+}

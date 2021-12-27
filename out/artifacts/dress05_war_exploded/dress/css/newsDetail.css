@@ -1,0 +1,114 @@
+
+.content{
+    display: flex;
+    justify-content: center;
+    margin: 100px;
+}
+.content>div{
+    display: flex;
+}
+
+/*黄色盒子站位*/
+.content>div:nth-child(1)>div:nth-child(1)>div:nth-child(1){
+    width: 130px;
+    height: 240px;
+    background-color: yellow;
+}
+/*左边栏黑色背景*/
+.content>div:nth-child(1)>div:nth-child(1)>div:nth-child(2){
+    width: 130px;
+    height: 240px;
+    background-color: #151515;
+    position: relative;
+    top: -240px;
+    left: 10px;
+    color: white;
+    line-height: 70px;
+    font-size: 16px;
+}
+/*左边栏文本*/
+.content>div:nth-child(1)>div:nth-child(1)>div:nth-child(2)>div{
+    text-align: right;
+    padding: 5px 20px 0 0;
+}
+/*文本的鼠标移动hover*/
+.content>div:nth-child(1)>div:nth-child(1)>div:nth-child(2)>div:hover{
+    background-color: #dc1c4d;
+    width: 110px;
+    height: 50px;
+    margin-left: 15px;
+    position: relative;
+    top: 10px;
+    text-align: center;
+    line-height: 45px;
+}
+/*新闻内容*/
+.news_ct{
+    width: 745px;
+    margin-left: 100px;
+}
+
+/*标题*/
+#title{
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+    font-family: 宋体;
+    margin-bottom: 20px;
+    color: #426100;
+}
+
+.news_ct>div:nth-child(1)>div:nth-child(2){
+    display: flex;
+    justify-content: space-around;
+    font-size: 15px;
+    color: #5A5A5A;
+    font-family: 新宋体;
+    margin-bottom: 20px;
+}
+
+#nAbstract{
+    display: flex;
+    border: 1px solid #F5F5F5;
+    width: 745px;
+    padding: 10px 0 10px 30px;
+    align-items: center;
+    color: #868686;
+    background-color: #F5F5F5;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+
+#content{
+    font-size: 15px;
+    font-family: 黑体;
+    color: #5A5A5A;
+    margin-bottom: 20px;
+}
+.news_ct>div:nth-child(4)>div{
+    font-family: 隶书;
+    font-size: 17px;
+}
+.news_ct>div:nth-child(4)>div:hover{
+    color: red;
+    /*鼠标变手指*/
+    cursor: pointer;
+}
+
+#last{
+    display: flex;
+    margin-bottom: 20px;
+    max-width: 400px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    /*禁止换行显示*/
+    white-space:nowrap;
+}
+#next{
+    display: flex;
+    max-width: 400px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    /*禁止换行显示*/
+    white-space:nowrap;
+}

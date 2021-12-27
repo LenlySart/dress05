@@ -1,0 +1,145 @@
+/*-----------------------作品欣赏---------------------------*/
+.appreciate>div{
+    margin: 60px 0;
+    display: flex;
+    justify-content: center;
+    color: #2f2d32;
+}
+.appreciate>div:first-child>div:nth-child(1){
+    width: 325px;
+    line-height: 30px;
+    padding: 10px 0;
+}
+/*作品欣赏盒子*/
+.appreciate>div>div:nth-child(1){
+    border: 2px solid #dc1c4d;
+    z-index: 1;
+    position: relative;
+    left: 186px;
+
+}
+/*背景盒子*/
+.appreciate>div>div:nth-child(2){
+    border: 1px solid #c1c1c1;
+    width: 325px;
+    height: 80px;
+    background:#c1c1c1;
+    /*相对定位*/
+    position: relative;
+    top: -10px;
+    left: -154px;
+}
+/*作品欣赏盒子中的文字*/
+.appreciate>div>div:nth-child(1)>div:nth-child(1){
+    font-size: 25px;
+    font-family: 楷体;
+    text-align: center;
+}
+.appreciate>div>div:nth-child(1)>div:nth-child(2){
+    text-align: center;
+}
+/*大盒子的绝对定位*/
+.appreciate>div>div{
+    position: absolute;
+}
+/*---------------------内容-------------------------*/
+/*导航居中，且让盒子实现flex布局*/
+.center>div:nth-child(2){
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/*设置内容导航*/
+.center>div:nth-child(2)>div:nth-child(1){
+    width: 960px;
+    height: 50px;
+    background-color: #2F2D32;
+    color: white;
+    display: flex;
+    justify-content: center;
+    /*行高，盒子多宽设置多少实得文字在中间，多个文字则实现上下行高*/
+    line-height: 50px;
+    margin-bottom: 20px;
+}
+/*文字间距*/
+.center>div:nth-child(2)>div:nth-child(1)>div{
+    padding: 0 100px;
+}
+/*文字的鼠标指针浮动效果*/
+.center>div:nth-child(2)>div:nth-child(1)>div:hover{
+    border-bottom: 7px solid #dc1c4d;
+}
+/*----------------内容展示-------------------*/
+
+/*内容盒子*/
+.exhibition{
+    width: 1000px;
+    height: 819px;
+    /*border: 1px solid red;*/
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    left: 20px;
+}
+/*图片盒子*/
+.box{
+    height:328px;
+    width:225px;
+    padding-right: 20px;
+
+}
+/*内容图片大小*/
+.box>div>img{
+    width: 100%;
+    height: auto;
+}
+/*内容图片下的文本*/
+.in_text{
+    display: flex;
+    justify-content: center;
+    color: #ACACAC;
+}
+.in_text>div:nth-child(2){
+    color: red;
+}
+.in_texts{
+    margin-top: 5px;
+    text-align: center;
+    font-size: 18px;
+}
+/*-------------------分页-----------------------*/
+
+
+.page{
+    display: flex;
+    justify-content: center;
+}
+/*内容盒子*/
+.page>div{
+    border: 1px solid black;
+    width: 21px;
+    height: 25px;
+    text-align: center;
+    margin: 0 2px 100px 2px;
+}
+.page>div:nth-child(1){
+    border: 1px solid #ACACAC;
+    color: #ACACAC;
+}
+.page>div:nth-child(1):hover{
+    background-color: #ffff;
+    color: #ACACAC;
+}
+.page>div:nth-child(2){
+    color: white;
+    background-color: #171619;
+}
+.page>div:hover{
+    color: white;
+    background-color: #171619;
+}
+.demo{
+    display: flex;
+    justify-content: center;
+}

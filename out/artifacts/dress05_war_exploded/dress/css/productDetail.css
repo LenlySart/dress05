@@ -1,0 +1,81 @@
+
+.productDetail{
+    display: flex;
+    justify-content: center;
+    margin: 100px;
+}
+/*内容合子*/
+.productDetail>div>div:nth-child(1){
+    display: flex;
+    justify-content: center;
+    margin-left: 10px;
+}
+/*图片右边的内容*/
+#productDetail>div:nth-child(2){
+    margin-left: 20px;
+}
+/*水平线*/
+.productDetail>div>div:nth-child(1)>div:nth-child(2)>div:nth-child(2){
+    width: 591px;
+    border-top: 1px solid #E2E2E2;
+    margin: 10px 0;
+}
+/*市价*/
+.productDetail>div>div:nth-child(1)>div:nth-child(2)>div:nth-child(3){
+    color: #898989;
+    margin-bottom: 10px;
+    text-decoration:line-through
+}
+/*价格*/
+.productDetail>div>div:nth-child(1)>div:nth-child(2)>div:nth-child(4){
+    display: flex;
+    align-items:baseline;
+}
+/*价格文字*/
+.productDetail>div>div:nth-child(1)>div:nth-child(2)>div:nth-child(4)>div{
+    color: red;
+    font-size:20px;
+}
+
+/*上一个*/
+#last{
+    display: flex;
+}
+#last:hover{
+   color: red;
+    /*鼠标变手指*/
+    cursor: pointer;
+}
+#last>div{
+    margin: 10px 10px;
+}
+/*下一个*/
+#next{
+    display: flex;
+}
+#next>div{
+    margin: 10px 10px;
+}
+#next:hover{
+    color: red;
+    /*鼠标变手指*/
+    cursor: pointer;
+}
+
+.parameter{
+    font-family: 楷体;
+    font-weight: bold;
+    margin-top: 50px;
+    border-top: 1px solid #E2E2E2;
+    width: 300px;
+}
+.parameter>div{
+    margin: 10px 0;
+}
+/*水平线*/
+/*.productDetail>div>div:nth-child(1)>div:nth-child(2)>div:nth-child(5){*/
+/*    width: 100px;*/
+/*    border-top: 1px solid #E2E2E2;*/
+/*    margin: 10px 0;*/
+/*}*/
+

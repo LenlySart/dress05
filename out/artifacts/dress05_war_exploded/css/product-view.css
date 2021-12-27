@@ -1,0 +1,36 @@
+.layui-row{
+    display: flex;
+    justify-content: center;
+}
+.layui-form{
+    display: flex;
+    font-size: 16px;
+    font-family: 仿宋;
+}
+.layui-form>div{
+    margin: 10px;
+}
+.layui-form>div:nth-child(2){
+    margin: 60px 10px;
+}
+
+#markedPrice{
+    color: #3C3F41;
+    /*删除线*/
+    text-decoration:line-through
+}
+.normalPrice{
+    display: flex;
+    align-items:baseline;
+    margin-bottom: 10px;
+}
+#normalPrice{
+    color: red;
+    font-size: 20px;
+}
+
+.param{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

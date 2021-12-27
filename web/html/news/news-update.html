@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="stylesheet" href="/X-admin/css/font.css">
+    <link rel="stylesheet" href="/X-admin/css/xadmin.css">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/isLogin.js"></script>
+    <script src="/js/MyAjax.js"></script>
+    <script src="/X-admin/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/X-admin/js/xadmin.js"></script>
+    <script src="/js/news/news-update.js"></script>
+    <style>
+        .layui-layedit{
+            width: 450px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="layui-fluid">
+    <div class="layui-row">
+        <form class="layui-form" >
+
+            <div class="layui-form-item">
+                <label for="title" class="layui-form-label">
+                    <span class="x-red">*</span>标题
+                </label>
+                <div class="layui-input-inline">
+                    <input type="text" id="title" name="title" required="" lay-verify="title" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="x-red">*</span>状态</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="state" value="1" title="是">
+                    <input type="radio" name="state" value="2" title="否">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="x-red">*</span>置顶</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="isShow" value="1" title="是" >
+                    <input type="radio" name="isShow" value="2" title="否">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    <span class="x-red">*</span>热点</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="isRecommend" value="1" title="是">
+                    <input type="radio" name="isRecommend" value="2" title="否">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="nAbstract" class="layui-form-label">
+                    <span class="x-red">*</span>摘要
+                </label>
+                <div class="layui-input-inline" >
+                    <textarea id="nAbstract" name="nAbstract" required="" lay-verify="nAbstract" class="layui-textarea" autocomplete="off" style="width: 400px"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="content" class="layui-form-label">
+                    <span class="x-red">*</span>内容
+                </label>
+                <div class="layui-input-inline" >
+                    <textarea id="content" name="content" style="display: none;"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <button class="layui-btn" lay-filter="edit" lay-submit="">编辑</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+
+        </form>
+    </div>
+</div>
+</body>
+</html>
+<script>
+    layui.use('layedit', function(){
+        var layedit = layui.layedit;
+        layedit.build('content'); //建立编辑器
+    });
+</script>

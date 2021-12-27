@@ -1,0 +1,27 @@
+.layui-row{
+    display: flex;
+    justify-content: center;
+}
+.layui-form{
+    display: flex;
+    font-size: 16px;
+    font-family: 仿宋;
+}
+.title{
+    font-family: 黑体;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+.hr{
+    border-top: 1px solid #3C3F41;
+    width: 600px;
+    margin: 10px 0;
+}
+.center{
+    font-family: 楷体;
+}
+.bottom{
+    display: flex;
+    justify-content: space-between;
+}

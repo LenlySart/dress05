@@ -1,0 +1,104 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    display: flex;
+}
+body>div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /*border: 1px solid red;*/
+
+}
+body>div>div{
+    width: 2000px;
+    /*width: 100%;*/
+}
+/*logo文字*/
+.foot{
+    background: #2F2D32;
+    color: white;
+    display: flex;
+    justify-content: center;
+}
+.foot>div:nth-child(1)>div:nth-child(1){
+    display: flex;
+}
+hr{
+    position: relative;
+    height:2px;
+    border-width:0;
+    width: 329px;
+    color: white;
+    background-color:white;
+    top: 50px;
+}
+.foot>div:nth-child(1)>div:nth-child(1)>div{
+    font-size: 30px;
+    font-weight: bold;
+    margin: 30px;
+}
+/*----------------------公司信息-------------------------------*/
+.foot>div:nth-child(1)>div:nth-child(2){
+    display: flex;
+    justify-content: center;
+}
+.foot>div:nth-child(1)>div:nth-child(2)>div:nth-child(1){
+    width: 350px;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 50px;
+
+}
+#newsTitle>div{
+    width: 200px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    /*禁止换行显示*/
+    white-space:nowrap;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+#newsTime>div{
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+
+.foot>div:nth-child(1)>div:nth-child(2)>div:nth-child(2)>div{
+    margin-right: 50px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    /*禁止换行显示*/
+    white-space:nowrap;
+    margin-bottom: 10px;
+}
+.foot>div:nth-child(1)>div:nth-child(2)>div:nth-child(3){
+    display: flex;
+    line-height: 30px;
+}
+.foot>div:nth-child(1)>div:nth-child(2)>div:nth-child(3)>div:nth-child(2){
+    position: relative;
+    top: 20%;
+    padding-left: 20px;
+}
+.foot>div:nth-child(1)>div:nth-child(2)>div:nth-child(3)>div:nth-child(2)>div:nth-child(1){
+    display: flex;
+}
+.foot>div:nth-child(1)>div:nth-child(2)>div:nth-child(3)>div:nth-child(2)>div:nth-child(1)>div:nth-child(1){
+    margin-right: 10px;
+}
+/*------------------------底部logo------------------------------*/
+.foot>div:nth-child(1)>div:nth-child(3){
+    display: flex;
+    justify-content: center;
+
+}
+.foot>div:nth-child(1)>div:nth-child(3)>div{
+    width: 274px;
+    /*border: 1px solid red;*/
+    text-align: center;
+    background: #171619;
+    border-radius: 20px;
+}
