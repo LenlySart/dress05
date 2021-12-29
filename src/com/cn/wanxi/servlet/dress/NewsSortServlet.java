@@ -3,8 +3,8 @@ package com.cn.wanxi.servlet.dress;
 import com.alibaba.fastjson.JSONObject;
 import com.cn.wanxi.enums.ResultModel;
 import com.cn.wanxi.model.news.NewsSort;
-import com.cn.wanxi.service.dress.NewsSortService;
-import com.cn.wanxi.service.dress_impl.NewsSortServiceImpl;
+import com.cn.wanxi.service.news.NewsSortService;
+import com.cn.wanxi.service.news.impl.NewsSortServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

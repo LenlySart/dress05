@@ -26,7 +26,7 @@ function myAjax(url, data, type) {
 }
 function findTypeAll() {
     $.ajax({
-        url: '/back/type/findAll',
+        url: '/type/findAll',
         data: {},
         type: 'get',
         async: false,

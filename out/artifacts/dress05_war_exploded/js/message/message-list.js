@@ -18,7 +18,7 @@ layui.use(['form', 'table', 'util'], function () {
             , {field: 'visitorName', title: '访客', width: 150, edit: 'text'}
             , {field: 'visitorEmail', title: '邮箱', edit: 'text',width: 150,}
             , {field: 'message', title: '留言', edit: 'text'}
-            , {field: 'state', title: '状态', width: 80,templet: '#switchTpl', unresize: true}
+            , {field: 'state', title: '是否回复', width: 80,templet: '#switchTpl', unresize: true}
             , {field: 'createTime', title: '创建时间', width: 106}
             , {field: 'updateTime', title: '更新时间', width: 106}
             , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 190}

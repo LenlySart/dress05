@@ -3,7 +3,7 @@ package com.cn.wanxi.servlet.dress;
 import com.alibaba.fastjson.JSONObject;
 import com.cn.wanxi.enums.ResultModel;
 import com.cn.wanxi.service.dress.NavService;
-import com.cn.wanxi.service.dress_impl.NavServiceImpl;
+import com.cn.wanxi.service.dress.impl.NavServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

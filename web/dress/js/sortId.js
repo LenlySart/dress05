@@ -9,11 +9,11 @@ function findSortAll() {
         dataType: 'json',
         success: function (data) {
             console.log(data);
-            setTypeData(data.data);
+            setSortData(data.data);
         }
     })
 }
-function setTypeData(data) {
+function setSortData(data) {
     let html='';
     for (let i = 0; i < data.length; i++) {
         html+='<div class="back'+i+'" onclick="findNews('+data[i].id+')">'+data[i].name+'</div>';

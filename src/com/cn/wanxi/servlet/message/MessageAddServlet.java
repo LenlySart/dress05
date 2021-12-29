@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.cn.wanxi.enums.ResultModel;
 import com.cn.wanxi.model.dress.Message;
 import com.cn.wanxi.service.dress.MessageService;
-import com.cn.wanxi.service.dress_impl.MessageServiceImpl;
+import com.cn.wanxi.service.dress.impl.MessageServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

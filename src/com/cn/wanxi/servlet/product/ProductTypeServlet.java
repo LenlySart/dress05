@@ -3,8 +3,8 @@ package com.cn.wanxi.servlet.product;
 import com.alibaba.fastjson.JSONObject;
 import com.cn.wanxi.enums.ResultModel;
 import com.cn.wanxi.model.product.TypeModel;
-import com.cn.wanxi.service.dress.TypeService;
-import com.cn.wanxi.service.dress_impl.TypeServiceImpl;
+import com.cn.wanxi.service.product.TypeService;
+import com.cn.wanxi.service.product.impl.TypeServiceImpl;
 
 
 import javax.servlet.ServletException;
@@ -21,7 +21,7 @@ import java.io.IOException;
  * @Description TODO
  * @createTime 2021年12月11日 13:49:00
  */
-@WebServlet("/back/type/findAll")
+@WebServlet("/type/findAll")
 public class ProductTypeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

@@ -2,12 +2,10 @@ package com.cn.wanxi.servlet.dress;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cn.wanxi.enums.ResultModel;
-import com.cn.wanxi.service.dress.CompanyService;
-import com.cn.wanxi.service.dress.NavService;
-import com.cn.wanxi.service.dress.NewsService;
-import com.cn.wanxi.service.dress_impl.CompanyServiceImpl;
-import com.cn.wanxi.service.dress_impl.NavServiceImpl;
-import com.cn.wanxi.service.dress_impl.NewsServiceImpl;
+import com.cn.wanxi.service.company.CompanyService;
+import com.cn.wanxi.service.news.NewsService;
+import com.cn.wanxi.service.company.impl.CompanyServiceImpl;
+import com.cn.wanxi.service.news.impl.NewsServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -16,9 +16,9 @@ function findTypeAll() {
 function setTypeData(data) {
     let html='';
     for (let i = 0; i < data.length; i++) {
-        html+='<div class="back'+i+'" onclick="findProductAll('+data[i].id+')">【'+data[i].name+'】</div>';
+        html+='<div onclick="findChangeType('+data[i].id+')">'+data[i].title+'</div>';
     }
-    $("#type").html(html);
+    $("#navModel").html(html);
 //    假如现在需要对第二个进行背景颜色的设置
 
 }

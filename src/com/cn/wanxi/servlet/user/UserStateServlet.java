@@ -3,7 +3,7 @@ package com.cn.wanxi.servlet.user;
 import com.alibaba.fastjson.JSON;
 import com.cn.wanxi.enums.ResultModel;
 import com.cn.wanxi.model.User;
-import com.cn.wanxi.service.impl.UserServiceImpl;
+import com.cn.wanxi.service.user.impl.UserServiceImpl;
 import com.cn.wanxi.service.user.UserService;
 import com.cn.wanxi.util.Tool;
 

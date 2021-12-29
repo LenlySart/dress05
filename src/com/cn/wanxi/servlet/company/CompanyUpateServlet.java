@@ -3,8 +3,8 @@ package com.cn.wanxi.servlet.company;
 import com.alibaba.fastjson.JSONObject;
 import com.cn.wanxi.enums.ResultModel;
 import com.cn.wanxi.model.company.Company;
-import com.cn.wanxi.service.dress.CompanyService;
-import com.cn.wanxi.service.dress_impl.CompanyServiceImpl;
+import com.cn.wanxi.service.company.CompanyService;
+import com.cn.wanxi.service.company.impl.CompanyServiceImpl;
 import com.cn.wanxi.util.Tool;
 
 import javax.servlet.ServletException;
