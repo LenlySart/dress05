@@ -156,7 +156,7 @@ layui.use( ['form'], function () {
             console.log(data);
             //查询所有
             // pageFndAll(data);
-            page(data)
+                page(data)
             return false;
         });
 

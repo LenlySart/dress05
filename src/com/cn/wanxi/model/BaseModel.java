@@ -7,7 +7,7 @@ package com.cn.wanxi.model;
  * @Description TODO
  * @createTime 2021年12月10日 16:22:00
  */
-public class BaseModel extends PageBase{
+public class BaseModel extends PageBase {
     private Integer id;
     //    创建时间
     private String createTime;
@@ -17,6 +17,26 @@ public class BaseModel extends PageBase{
     private Integer state;
     private String remark;
     private Integer status;
+    //    开始日期
+    private String start;
+    //    结束日期
+    private String end;
+
+    public String getStart() {
+        return start;
+    }
+
+    public void setStart(String start) {
+        this.start = start;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
+    }
 
     public Integer getStatus() {
         return status;

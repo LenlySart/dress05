@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 
 /**
  * @author Dshzs月
@@ -29,13 +30,31 @@ import java.io.IOException;
 public class ProductFndAllServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        //        封装前端传过来的值
+        //封装前端传过来的值
         String pageNo = req.getParameter("page");
         String pageSize = req.getParameter("limit");
-//        封装数据
+        String name = req.getParameter("name");
+        String markedPrice = req.getParameter("markedPrice");
+        String normalPrice = req.getParameter("normalPrice");
+        String typeId = req.getParameter("title");
+        String start = req.getParameter("start");
+        String end = req.getParameter("end");
+        //封装数据
         Product product = new Product();
         product.setPageNo(Tool.stringToInt(pageNo));
         product.setPageSize(Tool.stringToInt(pageSize));
+        product.setPageNo(Tool.stringToInt(pageNo));
+        product.setPageSize(Tool.stringToInt(pageSize));
+        product.setName(Tool.nullToString(name));
+        product.setTypeId(Tool.stringToInt(typeId));
+        try {
+            product.setMarkedPrice(new BigDecimal(Tool.nullToString(markedPrice)));
+            product.setNormalPrice(new BigDecimal(Tool.nullToString(normalPrice)));
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        product.setStart(Tool.nullToString(start));
+        product.setEnd(Tool.nullToString(end));
 
 //        创建一个业务层
         ProductService productService = new ProductServiceImpl();

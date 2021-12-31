@@ -26,6 +26,7 @@ function setData(data) {
                     }
                 }
             });
+            $("#hobby").val(data.hobby);
             $('input:radio[name=state][value=' + data.state + ']').attr("checked", true);
             form.render();
     });
@@ -65,6 +66,7 @@ layui.use(['form', 'layer'],
                     arr.push($(this).attr("title")) ;
 
                 });
+                arr +=","+[$("#hobby").val()];
                 console.log(arr)
                 // 将爱好转换为字符串
                 data.hobby =arr.toLocaleString();

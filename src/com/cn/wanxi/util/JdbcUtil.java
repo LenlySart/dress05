@@ -58,7 +58,9 @@ public class JdbcUtil {
 //            执行sql语句
             return pt.executeUpdate();
         } catch (SQLException e) {
-
+            e.printStackTrace();
+        }finally {
+            closeRe(conn,pt);
         }
         return 0;
     }
@@ -79,7 +81,9 @@ public class JdbcUtil {
             }
             return pt.executeUpdate();
         } catch (SQLException e) {
-
+            e.printStackTrace();
+        }finally {
+            closeRe(conn,pt);
         }
         return 0;
     }
@@ -141,13 +145,15 @@ public class JdbcUtil {
     public static ResultSet query(String sql) {
         try {
 //            编译sql语句
-            PreparedStatement preparedStatement = getConnection().prepareStatement(sql);
+            PreparedStatement pt = getConnection().prepareStatement(sql);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSet rs = pt.executeQuery();
 //            解析结果ResultSet集
-            return resultSet;
+            return rs;
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            closeRe(conn,pt,rs);
         }
         return null;
     }

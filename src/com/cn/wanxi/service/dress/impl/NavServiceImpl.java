@@ -57,13 +57,4 @@ public class NavServiceImpl implements NavService {
         return  list;
     }
 
-    /**
-     * 产品展示导航
-     * @return
-     */
-    @Override
-    public List<NavModel> getProductNav() {
-        NavModelDao navDao = new NavModelDaoImpl();
-        return navDao.getProductNav();
-    }
 }

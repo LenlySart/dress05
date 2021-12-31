@@ -196,7 +196,8 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public int getCountStatus(Product product) {
         //       查询数据库
-        String sql = "select count(*) count from dress_product where status=0 ";
+        String sql = "select count(*) count from dress_product d LEFT JOIN product_nav p ON d.type_id=p.id ";
+        sql += setSql(product);
         ResultSet resultSet = JdbcUtil.query(sql);
         int count = 0;
         try {
@@ -281,74 +282,6 @@ public class ProductDaoImpl implements ProductDao {
         return listAll;
     }
 
-
-    /**
-     * 礼服
-     * @return
-     */
-    @Override
-    public List<Product> getRodetList() {
-        //       查询数据库
-        String sql = "select d.*,p.title,date_format(create_time,'%Y-%m-%d') temp," +
-                "date_format(update_time,'%Y-%m-%d') time from `dress_product` d" +
-                " inner join `product_nav`  p ON d.type_id = p.id ";
-        sql +=" where type_id=2 and d.`status`=0";
-//        连接数据库
-        ResultSet rs = JdbcUtil.query(sql);
-//        用list来接收数据并使用集合 储存数据
-        return getList(rs);
-    }
-
-    /**
-     * 西装
-     * @return
-     */
-    @Override
-    public List<Product> getBlazertList() {
-        //       查询数据库
-        String sql = "select d.*,p.title,date_format(create_time,'%Y-%m-%d') temp," +
-                "date_format(update_time,'%Y-%m-%d') time from `dress_product` d" +
-                " inner join `product_nav`  p ON d.type_id = p.id ";
-        sql +=" where type_id=3 and d.`status`=0";
-//        连接数据库
-        ResultSet rs = JdbcUtil.query(sql);
-//        用list来接收数据并使用集合 储存数据
-        return getList(rs);
-    }
-
-    /**
-     * 定制
-     * @return
-     */
-    @Override
-    public List<Product> getTailoredList() {
-        //       查询数据库
-        String sql = "select d.*,p.title,date_format(create_time,'%Y-%m-%d') temp," +
-                "date_format(update_time,'%Y-%m-%d') time from `dress_product` d" +
-                " inner join `product_nav`  p ON d.type_id = p.id ";
-        sql +=" where type_id=4 and d.`status`=0";
-//        连接数据库
-        ResultSet rs = JdbcUtil.query(sql);
-//        用list来接收数据并使用集合 储存数据
-        return getList(rs);
-    }
-
-    /**
-     * 婚纱
-     * @return
-     */
-    @Override
-    public List<Product> getBridalVeil() {
-        //       查询数据库
-        String sql = "select d.*,p.title,date_format(create_time,'%Y-%m-%d') temp," +
-                "date_format(update_time,'%Y-%m-%d') time from `dress_product` d" +
-                " inner join `product_nav`  p ON d.type_id = p.id ";
-        sql +=" where type_id=1 and d.`status`=0";
-//        连接数据库
-        ResultSet rs = JdbcUtil.query(sql);
-//        用list来接收数据并使用集合 储存数据
-        return getList(rs);
-    }
 
     /**
      * 以id查询
@@ -457,7 +390,7 @@ public class ProductDaoImpl implements ProductDao {
         String sql = "select d.*,p.title,date_format(create_time,'%Y-%m-%d') temp," +
                 "date_format(update_time,'%Y-%m-%d') time from `dress_product` d" +
                 " inner join `product_nav`  p ON d.type_id = p.id ";
-        sql +="where d.`status`=0";
+        sql +=setSql(product);
         sql += " limit " + (product.getPageNo() + -1) * product.getPageSize() + "," + product.getPageSize();
 //        连接数据库
         ResultSet rs = JdbcUtil.query(sql);
@@ -465,6 +398,39 @@ public class ProductDaoImpl implements ProductDao {
         return getList(rs);
     }
 
+    /**
+     * 模糊查询条件语句
+     * @param product
+     * @return
+     */
+    private String setSql(Product product) {
+        String  sql = " where d.`status`=0 ";;
+        if (!"".equals(product.getName())) {
+            sql += " and d.name like '%" + product.getName() + "%'";
+        }
+
+        if (!"".equals(product.getStart()) && "".equals(product.getEnd())) {
+            sql += " and d.create_time >= " + product.getStart() + "";
+        }
+
+        if ("".equals(product.getStart()) && !"".equals(product.getEnd())) {
+            sql += " and d.create_time <= " + product.getEnd() + "";
+        }
+
+        if (!"".equals(product.getStart()) && !"".equals(product.getEnd())) {
+            sql += " and d.create_time between '" + product.getStart() + " ' and '" + product.getEnd() + "'";
+        }
+        if (product.getMarkedPrice() != null) {
+            sql += " and d.marked_price =" + product.getMarkedPrice();
+        }
+        if (product.getNormalPrice() != null) {
+            sql += " and d.normal_price=" + product.getNormalPrice();
+        }
+        if (product.getTypeId() != -1) {
+            sql += " and d.type_id= " + product.getTypeId();
+        }
+        return sql;
+    }
     /**
      * 封装list
      *

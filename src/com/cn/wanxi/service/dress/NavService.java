@@ -21,10 +21,4 @@ public interface NavService {
       */
      List<Nav> findAll();
 
-     /**
-      * 产品展示导航
-      * @param
-      * @return
-      */
-     List<NavModel> getProductNav();
 }

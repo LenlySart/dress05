@@ -44,45 +44,6 @@ public class ProductServiceImpl implements ProductService {
         return ResultModel.getModel(count,list);
     }
 
-    /**
-     * 礼服
-     * @return
-     */
-    @Override
-    public List<Product> getRodetList() {
-        ProductDao productDao = new ProductDaoImpl();
-        return productDao.getRodetList();
-    }
-
-    /**
-     * 西装
-     * @return
-     */
-    @Override
-    public List<Product> getBlazertList() {
-        ProductDao productDao = new ProductDaoImpl();
-        return productDao.getBlazertList();
-    }
-
-    /**
-     * 定制
-     * @return
-     */
-    @Override
-    public List<Product> getTailoredList() {
-        ProductDao productDao = new ProductDaoImpl();
-        return productDao.getTailoredList();
-    }
-
-    /**
-     * 婚纱
-     * @return
-     */
-    @Override
-    public List<Product> getBridalVeil() {
-        ProductDao productDao = new ProductDaoImpl();
-        return productDao.getBridalVeil();
-    }
 
     /**
      * 以id查询

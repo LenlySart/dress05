@@ -34,6 +34,7 @@ layui.use(['form', 'layer', 'jquery', 'laydate'],
                     arr.push($(this).attr("title")) ;
 
                 });
+                arr +=","+[$("#hobby").val()];
                 console.log(arr)
                 // 将爱好转换为字符串
                 data.hobby =arr.toLocaleString();

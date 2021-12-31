@@ -28,29 +28,6 @@ public interface ProductDao extends BaseDaoImpl<Product> {
      */
     List<Product> getProductList(Product product);
 
-    /**
-     * 礼服
-     * @return
-     */
-    List<Product> getRodetList();
-
-    /**
-     * 西装
-     * @return
-     */
-    List<Product> getBlazertList();
-
-    /**
-     * 定制
-     * @return
-     */
-    List<Product> getTailoredList();
-
-    /**
-     * 婚纱
-     * @return
-     */
-    List<Product> getBridalVeil();
 
     /**
      * 以id查询
