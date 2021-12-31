@@ -1,37 +1,16 @@
 layui.use(['form', 'table', 'util'], function () {
     var table = layui.table;
     let form = layui.form
-        , util = layui.util;
-    //渲染到表格
-    table.render({
-        elem: '#test'
-        , url: '/back/news/findAll'// 后台servlet的注解地址
-        , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-            title: '提示'
-            , layEvent: 'LAYTABLE_TIPS'
-            , icon: 'layui-icon-tips'
-        }]
-        , title: '用户数据表'
-        , cols: [[
-            {field: 'id', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true}
-            , {field: 'title', title: '标题', width: 150, edit: 'text'}
-            , {field: 'nAbstract', title: '摘要', edit: 'text'}
-            , {field: 'content', title: '内容', edit: 'text'}
-            , {field: 'state', title: '状态', width: 80,templet: '#switchTpl', unresize: true}
-            , {field: 'isShow', title: '置顶', width: 80,templet: '#switchIsShow', unresize: true}
-            , {field: 'isRecommend', title: '热点', width: 80,templet: '#switchIsRecommend', unresize: true}
-            , {field: 'createTime', title: '创建时间', width: 106}
-            , {field: 'updateTime', title: '更新时间', width: 106}
-            , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 190}
-        ]]
-        , page: true//开启分页
-    });
+        , util = layui.util
+        ,laydate = layui.laydate;
+
+    NewsData({});
     //监听行工具事件
-    table.on('tool(test)', function(obj){
+    table.on('tool(test)', function (obj) {
         var data = obj.data;
         sessionStorage.setItem("newsId", data.id);
-        if(obj.event === 'del'){
-            layer.confirm('确认要删除吗？',function(index){
+        if (obj.event === 'del') {
+            layer.confirm('确认要删除吗？', function (index) {
                 //发异步删除数据
                 $.ajax({
                     url: '/back/news/remove',
@@ -52,15 +31,15 @@ layui.use(['form', 'table', 'util'], function () {
                     }
                 });
             })
-        } else if(obj.event === 'edit'){
+        } else if (obj.event === 'edit') {
             sessionStorage.setItem("newsId", data.id);
             xadmin.open('编辑产品', '/html/news/news-update.html', 600, 400);
-        }else if (obj.event === 'detail'){
+        } else if (obj.event === 'detail') {
             sessionStorage.setItem("newsId", data.id);
             xadmin.open('编辑产品', '/html/news/news-view.html', 600, 400);
         }
 
-     });
+    });
 
     //监听单元格编辑
     table.on('edit(test)', function (obj) {
@@ -83,6 +62,23 @@ layui.use(['form', 'table', 'util'], function () {
         });
         // layer.msg('[ID: '+ data.id +'] ' + field + ' 字段更改值为：'+ util.escape(value));
     });
+    laydate.render({
+        elem: '#start',
+        trigger: 'click'
+    });
+    laydate.render({
+        elem: '#end',
+        trigger: 'click'
+    });
+    //监听提交
+    form.on('submit(sreach)',
+        function (data) {
+            data = data.field;
+            console.log(data)
+            //查询所有
+            NewsData(data);
+            return false;
+        });
 
     //监听状态操作
     form.on('switch(stateDemo)', function (obj) {
@@ -106,3 +102,35 @@ layui.use(['form', 'table', 'util'], function () {
         layer.tips(this.value + ' ' + this.name + '：' + obj.elem.checked, obj.othis);
     });
 });
+
+function NewsData(data) {
+    layui.use(['form', 'table', 'util'], function () {
+        var table = layui.table;
+
+        //渲染到表格
+        table.render({
+            elem: '#test'
+            , url: '/back/news/findAll'// 后台servlet的注解地址
+            , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+                title: '提示'
+                , layEvent: 'LAYTABLE_TIPS'
+                , icon: 'layui-icon-tips'
+            }]
+            , where: data
+            , title: '用户数据表'
+            , cols: [[
+                {field: 'id', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true}
+                , {field: 'title', title: '标题', width: 150, edit: 'text'}
+                , {field: 'nAbstract', title: '摘要', edit: 'text'}
+                , {field: 'content', title: '内容', edit: 'text'}
+                , {field: 'state', title: '状态', width: 80, templet: '#switchTpl', unresize: true}
+                , {field: 'isShow', title: '置顶', width: 80, templet: '#switchIsShow', unresize: true}
+                , {field: 'isRecommend', title: '热点', width: 80, templet: '#switchIsRecommend', unresize: true}
+                , {field: 'createTime', title: '创建时间', width: 106}
+                , {field: 'updateTime', title: '更新时间', width: 106}
+                , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 190}
+            ]]
+            , page: true//开启分页
+        });
+    });
+}

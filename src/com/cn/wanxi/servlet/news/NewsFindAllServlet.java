@@ -29,10 +29,20 @@ public class NewsFindAllServlet extends HttpServlet {
         //        封装前端传过来的值
         String pageNo = req.getParameter("page");
         String pageSize = req.getParameter("limit");
+        String title = req.getParameter("title");
+        String content = req.getParameter("content");
+        String nAbstract = req.getParameter("nAbstract");
+        String start = req.getParameter("start");
+        String end = req.getParameter("end");
 //        封装数据
         News news = new News();
         news.setPageNo(Tool.stringToInt(pageNo));
         news.setPageSize(Tool.stringToInt(pageSize));
+        news.setTitle(Tool.nullToString(title));
+        news.setContent(Tool.nullToString(content));
+        news.setnAbstract(Tool.nullToString(nAbstract));
+        news.setStart(Tool.nullToString(start));
+        news.setEnd(Tool.nullToString(end));
 
 //        创建一个业务层
         NewsService newsService = new NewsServiceImpl();

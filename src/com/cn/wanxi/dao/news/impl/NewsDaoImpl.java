@@ -26,12 +26,42 @@ public class NewsDaoImpl implements NewsDao {
     public List<News> findAll(News news) {
 //        编写sql语句
         String sql = "select *,date_format(create_time,'%Y-%m-%d') temp," +
-                "date_format(update_time,'%Y-%m-%d') time from dress_news where status=0";
+                "date_format(update_time,'%Y-%m-%d') time from dress_news where `status`=0 ";
+        sql += setSql(news);
         sql += " limit " + (news.getPageNo() + -1) * news.getPageSize() + "," + news.getPageSize();
 //        编译sql语句
         ResultSet rs = JdbcUtil.query(sql);
 //        解析sql语句并返回结果集
         return getList(rs);
+    }
+
+    /**
+     * 模糊查询条件语句
+     */
+    private String setSql(News news) {
+        String sql = "";
+
+        if (!"".equals(news.getTitle())) {
+            sql += " and title like '%" + news.getTitle() + "%' ";
+        }
+        if (!"".equals(news.getnAbstract())) {
+            sql += " and nAbstract like '%" + news.getnAbstract() + "%' ";
+        }
+        if (!"".equals(news.getContent())) {
+            sql += " and content like '%" + news.getContent() + "%' ";
+        }
+        if (!"".equals(news.getStart()) && "".equals(news.getEnd())) {
+            sql += " and create_time >= " + news.getStart() + "";
+        }
+
+        if ("".equals(news.getStart()) && !"".equals(news.getEnd())) {
+            sql += " and create_time <= " + news.getEnd() + "";
+        }
+
+        if (!"".equals(news.getStart()) && !"".equals(news.getEnd())) {
+            sql += " and create_time between '" + news.getStart() + " ' and '" + news.getEnd() + "'";
+        }
+        return sql;
     }
 
     /**
@@ -302,7 +332,8 @@ public class NewsDaoImpl implements NewsDao {
     @Override
     public int getCountStatus(News news) {
         //       查询数据库
-        String sql = "select count(*) count from dress_news where status=0 ";
+        String sql = "select count(*) count from dress_news where `status`=0 ";
+        sql += setSql(news);
         ResultSet resultSet = JdbcUtil.query(sql);
         int count = 0;
         try {
@@ -361,8 +392,8 @@ public class NewsDaoImpl implements NewsDao {
 //        4.返回数据
         return list;
     }
-    
-    
+
+
     private List<News> NewsList(String sql, News model) {
         List<News> list = new ArrayList<>();
         ResultSet rs = JdbcUtil.query(sql);
