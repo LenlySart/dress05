@@ -39,6 +39,7 @@ function findTypeAll() {
 }
 
 function setTypeData(data) {
+
     layui.use(['laydate', 'form', 'layer'],
         function () {
             $ = layui.jquery;

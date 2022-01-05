@@ -7,8 +7,14 @@ layui.use(['layedit', 'upload', 'element', 'form', 'layer', 'jquery', 'laydate']
             , upload = layui.upload
             ,  layer = layui.layer
             , laydate = layui.laydate;
+            let layedit = layui.layedit;
 
-        let layedit = layui.layedit;
+        layedit.set({
+            uploadImage: {
+                url: '/upload' //接口url
+                , type: '' //默认post
+            }
+        });
         let index = layedit.build('content'); //建立编辑器
         //自定义验证规则
         form.verify({

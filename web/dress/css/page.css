@@ -89,6 +89,9 @@
     padding-right: 20px;
 
 }
+.box>div>img:hover{
+    cursor: pointer;
+}
 /*内容图片大小*/
 .box>div>img{
     width: 100%;
@@ -99,6 +102,9 @@
     display: flex;
     justify-content: center;
     color: #ACACAC;
+}
+.in_texts:hover{
+    cursor: pointer;
 }
 .in_text>div:nth-child(2){
     color: red;

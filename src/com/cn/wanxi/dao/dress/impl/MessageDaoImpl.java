@@ -21,12 +21,42 @@ public class MessageDaoImpl implements MessageDao {
     public List<Message> findAll(Message message) {
         //        编写sql语句
         String sql = "select *,date_format(create_time,'%Y-%m-%d') temp," +
-                "date_format(update_time,'%Y-%m-%d') time from dress_message where status=0";
+                "date_format(update_time,'%Y-%m-%d') time from dress_message where `status`=0 ";
+        sql +=setSql(message);
         sql += " limit " + (message.getPageNo() + -1) * message.getPageSize() + "," + message.getPageSize();
 //        编译sql语句
         ResultSet rs = JdbcUtil.query(sql);
 //        解析sql语句并返回结果集
         return getList(rs);
+    }
+
+    /**
+     * 模糊查询条件语句
+     */
+    private String setSql(Message message) {
+        String sql = "";
+
+        if (!"".equals(message.getVisitorName())) {
+            sql += " and visitorName like '%" + message.getVisitorName() + "%' ";
+        }
+        if (!"".equals(message.getVisitorEmail())) {
+            sql += " and visitorEmail like '%" + message.getVisitorEmail() + "%' ";
+        }
+        if (!"".equals(message.getMessage())) {
+            sql += " and message like '%" + message.getMessage() + "%' ";
+        }
+        if (!"".equals(message.getStart()) && "".equals(message.getEnd())) {
+            sql += " and create_time >= " + message.getStart() + "";
+        }
+
+        if ("".equals(message.getStart()) && !"".equals(message.getEnd())) {
+            sql += " and create_time <= " + message.getEnd() + "";
+        }
+
+        if (!"".equals(message.getStart()) && !"".equals(message.getEnd())) {
+            sql += " and create_time between '" + message.getStart() + " ' and '" + message.getEnd() + "'";
+        }
+        return sql;
     }
 
     /**
@@ -48,7 +78,20 @@ public class MessageDaoImpl implements MessageDao {
 
     @Override
     public int getCount(Message message) {
-        return 0;
+        //       查询数据库
+        String sql = "select count(*) count from dress_message where `status`=0 ";
+        sql += setSql(message);
+        ResultSet resultSet = JdbcUtil.query(sql);
+        int count = 0;
+        try {
+            while (resultSet.next()) {
+//              编列count
+                count = resultSet.getInt("count");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
     }
 
     /**

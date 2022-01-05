@@ -103,8 +103,9 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public ResultModel getfindAll(Message message) {
         MessageDao messageDao = new MessageDaoImpl();
+        int count = messageDao.getCount(message);
         List<Message> list = messageDao.findAll(message);
-        return ResultModel.getModel(list);
+        return ResultModel.getModel(count,list);
     }
 
     /**

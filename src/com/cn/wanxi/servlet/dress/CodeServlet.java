@@ -1,5 +1,7 @@
 package com.cn.wanxi.servlet.dress;
 
+import redis.clients.jedis.Jedis;
+
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +30,8 @@ public class CodeServlet extends HttpServlet {
         BufferedImage image = new BufferedImage(80, 30, BufferedImage.TYPE_INT_RGB);
         //1.获取图片画笔
         Graphics g = image.getGraphics();
-        Random r = new Random();//随机数
+        //随机数
+        Random r = new Random();
 //        r.nextInt(255);
 //        r.nextInt(255)，随机数在0到255之间 而且必须是整数 0-1之间的小数
         //2.设置画笔颜色
@@ -40,9 +43,12 @@ public class CodeServlet extends HttpServlet {
 
         //4.调用自定义的方法,获取长度为5的字母数字组合的字符串
         String number = getNumber(5);
-//        System.out.println(number);
-//就是为了判断登录时的验证码是否正确
-        req.getSession().setAttribute("code", number);
+        //System.out.println(number);
+        //创建Redis对象
+        Jedis jedis = new Jedis();
+        //就是为了判断登录时的验证码是否正确
+        jedis.set("code", number);
+//        req.getSession().setAttribute("code", number);
         g.setColor(new Color(0, 0, 0));
         g.setFont(new Font("宋体", Font.BOLD, 24));
         //5.设置颜色字体后，绘制字符串

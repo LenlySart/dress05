@@ -1,36 +1,16 @@
-layui.use(['form', 'table', 'util'], function () {
+layui.use(['laydate','form', 'table', 'util'], function () {
     var table = layui.table;
     let form = layui.form
-        , util = layui.util;
+        , util = layui.util
+        ,laydate = layui.laydate;
 
-    //渲染到表格
-    table.render({
-        elem: '#test'
-        , url: '/back/message/findAll'// 后台servlet的注解地址
-        , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
-            title: '提示'
-            , layEvent: 'LAYTABLE_TIPS'
-            , icon: 'layui-icon-tips'
-        }]
-        , title: '用户数据表'
-        , cols: [[
-            {field: 'id', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true}
-            , {field: 'visitorName', title: '访客', width: 150, edit: 'text'}
-            , {field: 'visitorEmail', title: '邮箱', edit: 'text',width: 150,}
-            , {field: 'message', title: '留言', edit: 'text'}
-            , {field: 'state', title: '是否回复', width: 80,templet: '#switchTpl', unresize: true}
-            , {field: 'createTime', title: '创建时间', width: 106}
-            , {field: 'updateTime', title: '更新时间', width: 106}
-            , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 190}
-        ]]
-        , page: true//开启分页
-    });
+    MessageData({});
     //监听行工具事件
-    table.on('tool(test)', function(obj){
+    table.on('tool(test)', function (obj) {
         var data = obj.data;
         sessionStorage.setItem("newsId", data.id);
-        if(obj.event === 'del'){
-            layer.confirm('确认要删除吗？',function(index){
+        if (obj.event === 'del') {
+            layer.confirm('确认要删除吗？', function (index) {
                 //发异步删除数据
                 $.ajax({
                     url: '/back/message/remove',
@@ -51,15 +31,33 @@ layui.use(['form', 'table', 'util'], function () {
                     }
                 });
             })
-        } else if(obj.event === 'edit'){
+        } else if (obj.event === 'edit') {
             sessionStorage.setItem("messageId", data.id);
             xadmin.open('编辑产品', 'reply-message.html', 600, 400);
-        }else if (obj.event === 'detail'){
+        } else if (obj.event === 'detail') {
             sessionStorage.setItem("messageId", data.id);
             xadmin.open('编辑产品', 'message-view.html', 600, 400);
         }
 
     });
+    //执行一个laydate实例
+    laydate.render({
+        elem: '#start',
+        trigger: 'click'
+    });
+    laydate.render({
+        elem: '#end',
+        trigger: 'click'
+    });
+    //监听查询提交
+    form.on('submit(sreach)',
+        function (data) {
+            data = data.field;
+            console.log(data)
+            //查询所有
+            MessageData(data);
+            return false;
+        });
 
     // 修改
     table.on('edit(test)', function (obj) {
@@ -73,7 +71,7 @@ layui.use(['form', 'table', 'util'], function () {
             dataType: 'json',//java传递到前端的数据统一格式json
             success: function (res) {// Java后台给前端的返回信息，res就是返回的结果
                 console.log(res);
-                if (res.msg == "error") {
+                if (res.msg === "error") {
                     layer.msg("更新失败");
                 } else {
                     layer.msg("更新成功");
@@ -91,4 +89,33 @@ layui.use(['form', 'table', 'util'], function () {
         layer.tips(this.value + ' ' + this.name + '：' + obj.elem.checked, obj.othis);
     });
 
-    });
+});
+
+function MessageData(data) {
+    layui.use(['table'], function () {
+        let table = layui.table;
+        //渲染到表格
+        table.render({
+            elem: '#test'
+            , url: '/back/message/findAll'// 后台servlet的注解地址
+            , defaultToolbar: ['filter', 'exports', 'print', { //自定义头部工具栏右侧图标。如无需自定义，去除该参数即可
+                title: '提示'
+                , layEvent: 'LAYTABLE_TIPS'
+                , icon: 'layui-icon-tips'
+            }]
+            ,where:data
+            , title: '用户数据表'
+            , cols: [[
+                {field: 'id', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true}
+                , {field: 'visitorName', title: '访客', width: 150, edit: 'text'}
+                , {field: 'visitorEmail', title: '邮箱', edit: 'text', width: 150,}
+                , {field: 'message', title: '留言', edit: 'text'}
+                , {field: 'state', title: '是否回复', width: 80, templet: '#switchTpl', unresize: true}
+                , {field: 'createTime', title: '创建时间', width: 106}
+                , {field: 'updateTime', title: '更新时间', width: 106}
+                , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 190}
+            ]]
+            , page: true//开启分页
+        });
+    })
+}

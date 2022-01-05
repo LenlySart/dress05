@@ -19,6 +19,7 @@ import java.util.List;
 public class NewsDaoImpl implements NewsDao {
     /**
      * 查询所有
+     *
      * @param news
      * @return
      */
@@ -26,7 +27,7 @@ public class NewsDaoImpl implements NewsDao {
     public List<News> findAll(News news) {
 //        编写sql语句
         String sql = "select *,date_format(create_time,'%Y-%m-%d') temp," +
-                "date_format(update_time,'%Y-%m-%d') time from dress_news where `status`=0 ";
+                "date_format(update_time,'%Y-%m-%d') time from dress_news where status=0 ";
         sql += setSql(news);
         sql += " limit " + (news.getPageNo() + -1) * news.getPageSize() + "," + news.getPageSize();
 //        编译sql语句
@@ -61,11 +62,13 @@ public class NewsDaoImpl implements NewsDao {
         if (!"".equals(news.getStart()) && !"".equals(news.getEnd())) {
             sql += " and create_time between '" + news.getStart() + " ' and '" + news.getEnd() + "'";
         }
+        sql += "  order by update_time desc";
         return sql;
     }
 
     /**
      * 添加
+     *
      * @param news
      * @return
      */
@@ -81,22 +84,26 @@ public class NewsDaoImpl implements NewsDao {
         list.add(news.getState());
         list.add(news.getIsShow());
         list.add(news.getIsRecommend());
-        return JdbcUtil.updatea(sql,list);
+        return JdbcUtil.updatea(sql, list);
     }
 
     /**
      * 查询总条数
+     *
      * @param news
      * @return
      */
     @Override
     public int getCount(News news) {
         //       查询数据库
-        String sql = "select count(*) count from dress_news";
+        String sql = "select count(*) count from dress_news where `status`=0 ";
+        if (news.getSortId() != -1) {
+            sql += " and sort_id=" + news.getSortId();
+        }
         ResultSet resultSet = JdbcUtil.query(sql);
         int count = 0;
         try {
-            while (resultSet.next()){
+            while (resultSet.next()) {
 //              编列count
                 count = resultSet.getInt("count");
             }
@@ -108,6 +115,7 @@ public class NewsDaoImpl implements NewsDao {
 
     /**
      * 以id查询
+     *
      * @param news
      * @return
      */
@@ -123,6 +131,7 @@ public class NewsDaoImpl implements NewsDao {
 
     /**
      * 更新
+     *
      * @param news
      * @return
      */
@@ -136,7 +145,7 @@ public class NewsDaoImpl implements NewsDao {
                 "`state`=?," +
                 "`is_show`=?," +
                 "`is_recommend`=?," +
-                "`update_time`= "+"now() " +
+                "`update_time`= " + "now() " +
                 "WHERE (`id`=?)";
         //编译sql语句
         List list = new ArrayList<>();
@@ -147,11 +156,12 @@ public class NewsDaoImpl implements NewsDao {
         list.add(news.getIsShow());
         list.add(news.getIsRecommend());
         list.add(news.getId());
-        return JdbcUtil.updatea(sql,list);
+        return JdbcUtil.updatea(sql, list);
     }
 
     /**
      * 更新
+     *
      * @param news
      * @return
      */
@@ -165,6 +175,7 @@ public class NewsDaoImpl implements NewsDao {
 
     /**
      * 查询首页显示
+     *
      * @return
      */
     @Override
@@ -180,16 +191,17 @@ public class NewsDaoImpl implements NewsDao {
 
     /**
      * 查询所有
+     *
      * @return
      */
     @Override
     public List<News> FindAll(News model) {
         //查询热点产品
         String sqlHot = "SELECT d.*,s.name,date_format(d.create_time,'%Y-%m-%d') temp,date_format(d.update_time,'%Y-%m-%d') time FROM dress_news AS d JOIN news_sort AS s ON d.sort_id=s.id where d.is_show=1 ";
-        if(model.getSortId()!=-1){
-            sqlHot+=" and d.sort_id=" + model.getSortId() ;
+        if (model.getSortId() != -1) {
+            sqlHot += " and d.sort_id=" + model.getSortId();
         }
-        sqlHot += " limit " + (model.getPageNo() - 1) * 2 + "," + 1;
+        sqlHot += " limit " + (model.getPageNo() - 1) * model.getPageSize() + "," + 1;
         List<News> listAll = new ArrayList<>();
         List<News> listHot = NewsList(sqlHot, model);
         //将热点产品放入要返回的list
@@ -198,10 +210,10 @@ public class NewsDaoImpl implements NewsDao {
         }
         //查询置顶的产品
         String sqlTop = "SELECT d.*,s.name,date_format(d.create_time,'%Y-%m-%d') temp,date_format(d.update_time,'%Y-%m-%d') time FROM dress_news AS d JOIN news_sort AS s ON d.sort_id=s.id where d.is_recommend=1 ";
-        if(model.getSortId()!=-1){
-            sqlTop+=" and d.sort_id=" + model.getSortId() ;
+        if (model.getSortId() != -1) {
+            sqlTop += " and d.sort_id=" + model.getSortId();
         }
-        sqlTop += " limit " + (model.getPageNo() - 1) * 2 + "," + 3;
+        sqlTop += " limit " + (model.getPageNo() - 1) * model.getPageSize() + "," + 3;
         List<News> listTop = NewsList(sqlTop, model);
         //将置顶产品放入要返回的list
         for (int i = 0; i < listTop.size(); i++) {
@@ -209,11 +221,28 @@ public class NewsDaoImpl implements NewsDao {
         }
         //查询普通的产品 ，总条数应该为8条减去热点和新闻的条数
         String sqlNormal = "SELECT d.*,s.name,date_format(d.create_time,'%Y-%m-%d') temp,date_format(d.update_time,'%Y-%m-%d') time FROM dress_news AS d JOIN news_sort AS s ON d.sort_id=s.id where  d.is_recommend!=1 and d.is_show!=1 and d.`status`=0 ";
-        if(model.getSortId()!=-1){
-            sqlNormal+=" and d.sort_id=" + model.getSortId() ;
+        if (model.getSortId() != -1) {
+            sqlNormal += " and d.sort_id=" + model.getSortId();
         }
-        Integer pageSize=model.getPageSize()-listAll.size();
-        sqlNormal += " limit " + (model.getPageNo() - 1) * pageSize + "," + pageSize;
+        Integer page = listAll.size();
+        Integer pageSize = model.getPageSize();
+        Integer pageAll = pageSize - page;
+        if (page < 1) {
+            int temp;
+            if (model.getSortId() > 1 && model.getPageNo() >= 1){
+                temp = 4;
+            } else {
+                if (model.getPageNo() > 1) {
+                    temp = (model.getPageNo() - 1) * model.getPageSize();
+                } else {
+                    temp = model.getPageSize();
+                }
+            }
+            page = temp - 4;
+        } else {
+            page = (model.getPageNo() - 1) * page;
+        }
+        sqlNormal += " limit " + page + "," + pageAll;
         List<News> listNormal = NewsList(sqlNormal, model);
         //将普通的放入list
         for (int i = 0; i < listNormal.size(); i++) {
@@ -224,13 +253,14 @@ public class NewsDaoImpl implements NewsDao {
 
     /**
      * 更新置顶
+     *
      * @param news
      * @return
      */
     @Override
     public int updateIsShow(News news) {
         //        编写sql
-        String sql = "UPDATE `dress_news` SET `is_show`='"+news.getIsShow()+"' WHERE id="+news.getId();
+        String sql = "UPDATE `dress_news` SET `is_show`='" + news.getIsShow() + "' WHERE id=" + news.getId();
 //        编译sql
         int count = JdbcUtil.update(sql);
         return count;
@@ -238,13 +268,14 @@ public class NewsDaoImpl implements NewsDao {
 
     /**
      * 更新热点
+     *
      * @param news
      * @return
      */
     @Override
     public int updateIsRecommend(News news) {
         //        编写sql
-        String sql = "UPDATE `dress_news` SET `is_recommend`='"+news.getIsRecommend()+"' WHERE id="+news.getId();
+        String sql = "UPDATE `dress_news` SET `is_recommend`='" + news.getIsRecommend() + "' WHERE id=" + news.getId();
 //        编译sql
         int count = JdbcUtil.update(sql);
         return count;
@@ -252,20 +283,21 @@ public class NewsDaoImpl implements NewsDao {
 
     /**
      * 以id查询
+     *
      * @param id
      * @return
      */
     @Override
     public List<News> getFindById(Integer id) {
-        String sql="(SELECT dn.id,dn.title,dn.content,dn.nAbstract,date_format(dn.create_time,'%Y-%m-%d') temp,ni.author,ni.page_view  FROM dress_news dn, news_info ni where dn.`status`=0 AND dn.id=(select min(id) from dress_news where id>"+ id +"))\n" +
+        String sql = "(SELECT dn.id,dn.title,dn.content,dn.nAbstract,date_format(dn.create_time,'%Y-%m-%d') temp,ni.author,ni.page_view  FROM dress_news dn, news_info ni where dn.`status`=0 AND dn.id=(select max(id) from dress_news where id<" + id + "))\n" +
                 "union\n" +
-                "(SELECT dn.id,dn.title,dn.content,dn.nAbstract,date_format(dn.create_time,'%Y-%m-%d') temp,ni.author,ni.page_view  FROM dress_news dn, news_info ni where dn.`status`=0 AND dn.id="+ id +")\n" +
+                "(SELECT dn.id,dn.title,dn.content,dn.nAbstract,date_format(dn.create_time,'%Y-%m-%d') temp,ni.author,ni.page_view  FROM dress_news dn, news_info ni where dn.`status`=0 AND dn.id=" + id + ")\n" +
                 "union\n" +
-                "(SELECT dn.id,dn.title,dn.content,dn.nAbstract,date_format(dn.create_time,'%Y-%m-%d') temp,ni.author,ni.page_view  FROM dress_news dn, news_info ni where dn.`status`=0 AND dn.id=(select max(id) from dress_news where id<"+ id +"))";
+                "(SELECT dn.id,dn.title,dn.content,dn.nAbstract,date_format(dn.create_time,'%Y-%m-%d') temp,ni.author,ni.page_view  FROM dress_news dn, news_info ni where dn.`status`=0 AND dn.id=(select min(id) from dress_news where id>" + id + "))";
         ResultSet rs = JdbcUtil.query(sql);
         List<News> list = new ArrayList<>();
         try {
-            while (rs.next()){
+            while (rs.next()) {
                 News model = new News();
                 model.setId(rs.getInt("id"));
                 model.setTitle(rs.getString("title"));
@@ -286,13 +318,14 @@ public class NewsDaoImpl implements NewsDao {
 
     /**
      * 删除id要删除的
+     *
      * @param
      * @return
      */
     @Override
     public int deleteId(News in) {
         //        编写sql
-        String sql = "UPDATE `dress_news` SET `status`='"+in.getStatus()+"' WHERE id="+in.getId();
+        String sql = "UPDATE `dress_news` SET `status`='" + in.getStatus() + "' WHERE id=" + in.getId();
 //        编译sql
         int count = JdbcUtil.update(sql);
         return count;
@@ -300,13 +333,14 @@ public class NewsDaoImpl implements NewsDao {
 
     /**
      * 查询删除
+     *
      * @param news
      * @return
      */
     @Override
     public News selectDele(News news) {
         //        编写sql语句
-        String sql ="SELECT * FROM `dress_news` WHERE id="+news.getId();
+        String sql = "SELECT * FROM `dress_news` WHERE id=" + news.getId();
         //        编译sql语句
         ResultSet rs = JdbcUtil.query(sql);
         //解析结果集
@@ -321,11 +355,12 @@ public class NewsDaoImpl implements NewsDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return list.size()>0?list.get(0):null;
+        return list.size() > 0 ? list.get(0) : null;
     }
 
     /**
      * 查询没被删除状态的总条数
+     *
      * @param news
      * @return
      */
@@ -337,7 +372,7 @@ public class NewsDaoImpl implements NewsDao {
         ResultSet resultSet = JdbcUtil.query(sql);
         int count = 0;
         try {
-            while (resultSet.next()){
+            while (resultSet.next()) {
 //              编列count
                 count = resultSet.getInt("count");
             }
@@ -349,13 +384,14 @@ public class NewsDaoImpl implements NewsDao {
 
     /**
      * 更新状态
+     *
      * @param news
      * @return
      */
     @Override
     public int updateState(News news) {
         //        编写sql
-        String sql = "UPDATE `dress_news` SET `state`='"+news.getState()+"' WHERE id="+news.getId();
+        String sql = "UPDATE `dress_news` SET `state`='" + news.getState() + "' WHERE id=" + news.getId();
 //        编译sql
         int count = JdbcUtil.update(sql);
         return count;
@@ -423,3 +459,4 @@ public class NewsDaoImpl implements NewsDao {
     }
 
 }
+

@@ -56,7 +56,8 @@ layui.use(['layedit', 'upload', 'element', 'form', 'layer', 'jquery', 'laydate']
         });
         //自定义验证规则
         form.verify({
-
+            markedPrice:[/^\d+$|^\d+[.]?\d+$/,'请输入正确的价格'],
+            normalPrice:[/^\d+$|^\d+[.]?\d+$/,'请输入正确的价格']
 
         });
         // 调用类型名称

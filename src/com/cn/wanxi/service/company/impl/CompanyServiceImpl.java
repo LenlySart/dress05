@@ -34,7 +34,7 @@ public class CompanyServiceImpl implements CompanyService {
             company.setName(jedis.get("companyName"));
             company.setProFile(jedis.get("companyProFile"));
             company.setImgHref(jedis.get("companyImgHref"));
-            System.out.println("redis");
+//            System.out.println("redis");
 
         }else {
         CompanyDao companyDao = new CompanyDaoImpl();
@@ -46,7 +46,7 @@ public class CompanyServiceImpl implements CompanyService {
         jedis.set("companyAddress", company.getAddress());
         jedis.set("companyProFile", company.getProFile());
         jedis.set("companyImgHref", company.getImgHref());
-            System.out.println("mysql");
+//            System.out.println("mysql");
         }
         return company;
     }

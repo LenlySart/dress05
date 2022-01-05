@@ -28,15 +28,27 @@ public class MessageFindAllServlet extends HttpServlet {
         //        封装前端传过来的值
         String pageNo = req.getParameter("page");
         String pageSize = req.getParameter("limit");
+        String visitorName = req.getParameter("visitorName");
+        String visitorEmail = req.getParameter("visitorEmail");
+        String message = req.getParameter("message");
+        String start = req.getParameter("start");
+        String end = req.getParameter("end");
+
+
 //        封装数据
-        Message message = new Message();
-        message.setPageNo(Tool.stringToInt(pageNo));
-        message.setPageSize(Tool.stringToInt(pageSize));
+        Message model = new Message();
+        model.setPageNo(Tool.stringToInt(pageNo));
+        model.setPageSize(Tool.stringToInt(pageSize));
+        model.setVisitorName(Tool.nullToString(visitorName));
+        model.setVisitorEmail(Tool.nullToString(visitorEmail));
+        model.setMessage(Tool.nullToString(message));
+        model.setStart(Tool.nullToString(start));
+        model.setEnd(Tool.nullToString(end));
 
 //        创建一个业务层
         MessageService messageService = new MessageServiceImpl();
 //        调用业务层查获取询数据
-        ResultModel resultModel = messageService.getfindAll(message);
+        ResultModel resultModel = messageService.getfindAll(model);
 //        返回数据到前端
         resp.getWriter().println(JSONObject.toJSONString(resultModel));
     }

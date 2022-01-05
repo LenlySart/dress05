@@ -61,9 +61,8 @@ function setData(data) {
             $("#photograph").attr("src",data.imgHref);
             $("#markedPrice").val(data.markedPrice);
             $("#normalPrice").val(data.normalPrice);
-            // $("#title").attr(data.title);
-            // $("#title").attr();
-            findTypeAll()
+            findTypeAll();
+            $("#title").val(data.typeId);
             $('input:radio[name=state][value=' + data.state + ']').attr("checked", true);
             $('input:radio[name=isShow][value=' + data.isShow + ']').attr("checked", true);
             // 重新渲染表单
@@ -86,6 +85,9 @@ layui.use(['form', 'layer'],
                 }
             },
             pass: [/(.+){6,12}$/, '密码必须6到12位'],
+            markedPrice:[/^\d+$|^\d+[.]?\d+$/,'请输入正确的价格'],
+            normalPrice:[/^\d+$|^\d+[.]?\d+$/,'请输入正确的价格']
+
 
         });
 

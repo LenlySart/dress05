@@ -22,3 +22,15 @@ function setNavs(data) {
     }
     $("#dressNavs").html(html);
 }
+
+function login() {
+    let loginName = sessionStorage.getItem("loginName");
+    if (loginName!=null){
+        location.href = "/html/index.html";
+        return;
+    }
+    location.href = "/html/login.html";
+}
+function leaveWords() {
+    location.href = "/dress/html/more.html";
+}

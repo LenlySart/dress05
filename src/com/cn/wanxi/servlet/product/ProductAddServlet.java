@@ -39,13 +39,8 @@ public class ProductAddServlet extends HttpServlet {
         product.setName(name);
         product.setImgHref(imgHref);
         product.setTypeId(Tool.stringToInt(typeId));
-        try {
-            product.setMarkedPrice(new BigDecimal(markedPrice));
-            product.setNormalPrice(new BigDecimal(normalPrice));
-        }catch (Exception e){
-
-        }
-
+        product.setMarkedPrice(Tool.bigDecimal(markedPrice));
+        product.setNormalPrice(Tool.bigDecimal(normalPrice));
         product.setIsShow(Tool.stringToInt(isShow));
         product.setState(Tool.stringToInt(state));
 

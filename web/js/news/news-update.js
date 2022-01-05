@@ -12,13 +12,21 @@ layui.use(['layedit', 'upload', 'element', 'form', 'layer', 'jquery', 'laydate']
             , layer = layui.layer
             , laydate = layui.laydate;
         let layedit = layui.layedit;
-        //监听提交
 
+        layedit.set({
+            uploadImage: {
+                url: '/upload' //接口url
+                , type: '' //默认post
+            }
+        });
+        let index = layedit.build('content'); //建立编辑器
+        //监听提交
         form.on('submit(edit)',
             function(data) {
                 data = data.field;
                 // 获取id
                 data.id=sessionStorage.getItem("newsId");
+                data.content = layedit.getContent(index);
                 console.log(data);
                 //发异步，把数据提交给php
                 let res = myAjax("/back/news/update" ,data);

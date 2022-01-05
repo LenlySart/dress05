@@ -54,7 +54,7 @@
 /*联系我们内容盒子中的中间部位*/
 .contact_us_content>div:nth-child(1){
     width: 960px;
-    height: 710px;
+    height: 450px;
     display: flex;
     flex-wrap: wrap;
     position: relative;
@@ -144,6 +144,7 @@
 
 /*地图*/
 .map{
-    position: relative;
-    top: -146px;
+    display: flex;
+    justify-content: center;
+    background-color: #2F2D32;
 }

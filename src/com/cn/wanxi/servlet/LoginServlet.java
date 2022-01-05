@@ -6,6 +6,7 @@ import com.cn.wanxi.model.User;
 import com.cn.wanxi.service.user.UserService;
 import com.cn.wanxi.service.user.impl.UserServiceImpl;
 import com.cn.wanxi.util.Tool;
+import redis.clients.jedis.Jedis;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,14 +33,17 @@ public class LoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String code = req.getParameter("code");
-        String sessionCode = (String) req.getSession().getAttribute("code");
+        //创建Redis对象
+        Jedis jedis = new Jedis();
+        String redisCode =  jedis.get("code");
+//        String sessionCode = (String) req.getSession().getAttribute("code");
 
 //        封装前端传过来的值到model中
         User user = new User();
         user.setUsername(username);
         user.setPassword(Tool.encoderByMd5(password));
         user.setCode(code);
-        user.setSessionCode(sessionCode);
+        user.setSessionCode(redisCode);
 
 //        创建service对象获取其中方法
         UserService userService = new UserServiceImpl();

@@ -3,6 +3,7 @@ package com.cn.wanxi.util;
 import sun.misc.BASE64Encoder;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -26,7 +27,7 @@ public class Tool {
     }
 
     /**
-     * md5
+     * 密码加密md5
      */
     public static String encoderByMd5(String str){
         //确定计算方法
@@ -40,21 +41,49 @@ public class Tool {
         } catch (NoSuchAlgorithmException | UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
         return newstr;
     }
 
+    /**
+     * 将传过来的值转换成int类型
+     * 如果为空设一个默认值
+     * @param value
+     * @return
+     */
     public static Integer stringToInt(String value) {
         try {
             return Integer.parseInt(value);
         } catch (Exception e) {
             return -1;
         }
-
     }
+
+    /**
+     * 将传过来的值进行判断并附上默认值
+     * @param value
+     * @return
+     */
     public static String nullToString(String value) {
-
         return value == null ? "" : value;
+    }
+    /**
+     * 将传过来的值进行判断并附上默认值
+     * @param value
+     * @return
+     */
+    public static BigDecimal nullBigDecimal(BigDecimal value) {
+        return value;
+    }
 
+    /**
+     * 把传过来的值转换成BigDecimal
+     */
+    public static BigDecimal bigDecimal(String value){
+
+        try {
+            return new BigDecimal(value);
+        }catch (Exception e){
+            return null;
+        }
     }
 }

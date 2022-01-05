@@ -47,12 +47,8 @@ public class ProductFndAllServlet extends HttpServlet {
         product.setPageSize(Tool.stringToInt(pageSize));
         product.setName(Tool.nullToString(name));
         product.setTypeId(Tool.stringToInt(typeId));
-        try {
-            product.setMarkedPrice(new BigDecimal(Tool.nullToString(markedPrice)));
-            product.setNormalPrice(new BigDecimal(Tool.nullToString(normalPrice)));
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
+        product.setMarkedPrice(Tool.nullBigDecimal(Tool.bigDecimal(markedPrice)));
+        product.setNormalPrice(Tool.nullBigDecimal(Tool.bigDecimal(normalPrice)));
         product.setStart(Tool.nullToString(start));
         product.setEnd(Tool.nullToString(end));
 

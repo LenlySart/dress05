@@ -34,7 +34,6 @@ public class ProductFeatureServiceImpl implements ProductFeatureService {
                 productFeature.setpDescribe(productPDescribe.get(i));
                 list.add(productFeature);
             }
-            System.out.println("redis--------");
         } else {
             ProductFeatureDao productFeatureDao = new ProductFeatureDaoImpl();
             list = productFeatureDao.getproductFeature();

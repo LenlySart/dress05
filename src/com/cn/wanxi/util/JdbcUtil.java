@@ -57,8 +57,8 @@ public class JdbcUtil {
             pt = conn.prepareStatement(sql);
 //            执行sql语句
             return pt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ignored) {
+
         }finally {
             closeRe(conn,pt);
         }
@@ -80,10 +80,8 @@ public class JdbcUtil {
                 pt.setObject(i+1,list.get(i));
             }
             return pt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
-            closeRe(conn,pt);
+        } catch (SQLException ignored) {
+
         }
         return 0;
     }
@@ -150,8 +148,8 @@ public class JdbcUtil {
             ResultSet rs = pt.executeQuery();
 //            解析结果ResultSet集
             return rs;
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ignored) {
+
         }finally {
             closeRe(conn,pt,rs);
         }

@@ -26,6 +26,7 @@ public class NewsUpdateServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //封装前端传过来的值
+        String id =req.getParameter("id");
         String title = req.getParameter("title");
         String content = req.getParameter("content");
         String nAbstract = req.getParameter("nAbstract");
@@ -35,6 +36,7 @@ public class NewsUpdateServlet extends HttpServlet {
 
         //封装数据
         News news = new News();
+        news.setId(Tool.stringToInt(id));
         news.setTitle(title);
         news.setContent(content);
         news.setState(Tool.stringToInt(state));

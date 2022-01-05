@@ -244,12 +244,13 @@ public class ProductDaoImpl implements ProductDao {
      */
     @Override
     public List<Product> getProductList(Product model) {
+
         //查询热点产品
         String sqlHot = "SELECT p.*,c.title FROM dress_product p,product_nav c  where p.type_id=c.id and p.is_show=1  ";
         if(model.getTypeId()!=-1){
             sqlHot+=" and p.type_id=" + model.getTypeId() ;
         }
-        sqlHot += " limit " + (model.getPageNo() - 1) * 2 + "," + 2;
+        sqlHot += " limit " + (model.getPageNo() - 1) * model.getPageSize() + "," + 2;
         List<Product> listAll = new ArrayList<>();
         List<Product> listHot = getProductList(sqlHot, model);
         //将热点产品放入要返回的list
@@ -261,19 +262,36 @@ public class ProductDaoImpl implements ProductDao {
         if(model.getTypeId()!=-1){
             sqlTop+=" and p.type_id=" + model.getTypeId() ;
         }
-        sqlTop += " limit " + (model.getPageNo() - 1) * 2 + "," + 2;
+        sqlTop += " limit " + (model.getPageNo() - 1) * model.getPageSize() + "," + 2;
         List<Product> listTop = getProductList(sqlTop, model);
         //将置顶产品放入要返回的list
         for (int i = 0; i < listTop.size(); i++) {
             listAll.add(listTop.get(i));
         }
-        //查询普通的产品 ，总条数应该为8条减去热点和新闻的条数
-        String sqlNormal = "SELECT p.*,c.title FROM dress_product p INNER JOIN product_nav c ON p.type_id=c.id where  p.is_recommend!=1 and p.is_show!=1 and p.`status`=0 ";
+        //查询普通的产品 ，总条数应该为8条减去热点和置顶的条数
+        String sqlNormal = "SELECT p.*,c.title FROM dress_product p INNER JOIN product_nav c ON p.type_id=c.id where p.is_show!=1 and p.is_recommend!=1 and p.`status`=0 ";
         if(model.getTypeId()!=-1){
             sqlNormal+=" and p.type_id=" + model.getTypeId() ;
         }
-        Integer pageSize=model.getPageSize()-listAll.size();
-        sqlNormal += " limit " + (model.getPageNo() - 1) * pageSize + "," + pageSize;
+        Integer page = listAll.size();
+        Integer pageSize=model.getPageSize();
+        Integer pageAll = pageSize-page;
+        if (page < 1) {
+            int temp;
+            if (model.getTypeId() > 1 && model.getPageNo() >= 1){
+                temp = 4;
+            } else {
+                if (model.getPageNo() > 1) {
+                    temp = (model.getPageNo() - 1) * model.getPageSize();
+                } else {
+                    temp = model.getPageSize();
+                }
+            }
+            page = temp - 4;
+        } else {
+            page = (model.getPageNo() - 1) * page;
+        }
+        sqlNormal += " limit " + page + "," + pageAll;
         List<Product> listNormal = getProductList(sqlNormal, model);
         //将普通的放入list
         for (int i = 0; i < listNormal.size(); i++) {
@@ -290,11 +308,11 @@ public class ProductDaoImpl implements ProductDao {
      */
     @Override
     public  List<Product> findByIdDress(Product product) {
-        String sql="(SELECT p.*,c.title,r.*  FROM dress_product AS p JOIN product_nav AS c JOIN product_parameter AS r ON p.parameter_id=r.id where p.type_id=c.id  and p.id=(select min(id) from dress_product where id>"+product.getId()+"))\n" +
+        String sql="(SELECT p.*,c.title,r.*  FROM dress_product AS p JOIN product_nav AS c JOIN product_parameter AS r ON p.parameter_id=r.id where p.type_id=c.id  and p.id=(select max(id) from dress_product where id<"+product.getId()+"))\n" +
                 "union all\n" +
                 "(SELECT p.*,c.title,r.*  FROM dress_product AS p JOIN product_nav AS c JOIN product_parameter AS r ON p.parameter_id=r.id where p.type_id=c.id  and p.id="+product.getId()+")\n" +
                 "union all\n" +
-                "(SELECT p.*,c.title,r.*  FROM dress_product AS p JOIN product_nav AS c JOIN product_parameter AS r ON p.parameter_id=r.id where p.type_id=c.id  and p.id=(select max(id) from dress_product where id<"+product.getId()+"))";
+                "(SELECT p.*,c.title,r.*  FROM dress_product AS p JOIN product_nav AS c JOIN product_parameter AS r ON p.parameter_id=r.id where p.type_id=c.id  and p.id=(select min(id) from dress_product where id>"+product.getId()+"))";
         ResultSet rs = JdbcUtil.query(sql);
         List<Product> list = new ArrayList<>();
         try {
@@ -429,6 +447,7 @@ public class ProductDaoImpl implements ProductDao {
         if (product.getTypeId() != -1) {
             sql += " and d.type_id= " + product.getTypeId();
         }
+        sql +=" order by update_time desc ";
         return sql;
     }
     /**

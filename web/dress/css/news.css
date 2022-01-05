@@ -22,10 +22,10 @@
 }
 /*灰盒子*/
 .news_trends>div>div:nth-child(2){
-    border: 1px solid #ECECEC;
+    border: 1px solid #c1c1c1;
     width: 325px;
     height: 80px;
-    background:#ECECEC;
+    background:#c1c1c1;
     position: relative;
     top: -10px;
     left: -133px;
@@ -172,36 +172,7 @@
 }
 
 /*-------------------分页-----------------------*/
-.n_page{
+.demo{
     display: flex;
     justify-content: center;
-    margin-left: 514px;
-}
-/*所有页码的设置*/
-.n_page>div{
-    border: 1px solid black;
-    width: 21px;
-    height: 25px;
-    text-align: center;
-    margin: 0 2px 100px 2px;
-}
-/*第一个盒子设置*/
-.n_page>div:nth-child(1){
-    border: 1px solid #ACACAC;
-    color: #ACACAC;
-}
-/*第一个盒子的hover事件*/
-.n_page>div:nth-child(1):hover{
-    background-color: #ffff;
-    color: #ACACAC;
-}
-/*第二个盒子的设置*/
-.n_page>div:nth-child(2){
-    color: white;
-    background-color: #171619;
-}
-/*第二个盒子的hover事件*/
-.n_page>div:hover{
-    color: white;
-    background-color: #171619;
 }

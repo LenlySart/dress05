@@ -16,7 +16,11 @@ function Product(data) {
             , cols: [[
                 , {field: 'id', title: 'ID', width: 80, fixed: 'left', unresize: true, sort: true}
                 , {field: 'name', title: '产品名', width: 120}
-                , {field: 'imgHref', title: '产品', width: 150, templet: '<div><img src="{{d.imgHref}}"></div>'}
+                , {
+                    field: 'imgHref', title: '产品', width: 150, templet: function (data) {
+                        return '<div><img src="'+data.imgHref+'"></div>';
+                    }
+                }
                 , {field: 'markedPrice', title: '市价', width: 80, sort: true}
                 , {field: 'normalPrice', title: '常价', width: 80, sort: true}
                 , {field: 'title', title: '类型', width: 80}

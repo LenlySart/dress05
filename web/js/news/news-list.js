@@ -19,7 +19,7 @@ layui.use(['form', 'table', 'util'], function () {
                     dataType: 'json',
                     success: function (res) {
                         console.log(res);
-                        if (res.count == 1) {
+                        if (res.count === 1) {
                             $(obj).parents("tr").remove();
                             layer.msg('已删除!', {icon: 1, time: 1000});
                             obj.del();
@@ -33,10 +33,10 @@ layui.use(['form', 'table', 'util'], function () {
             })
         } else if (obj.event === 'edit') {
             sessionStorage.setItem("newsId", data.id);
-            xadmin.open('编辑产品', '/html/news/news-update.html', 600, 400);
+            xadmin.open('编辑新闻', '/html/news/news-update.html', 600, 400);
         } else if (obj.event === 'detail') {
             sessionStorage.setItem("newsId", data.id);
-            xadmin.open('编辑产品', '/html/news/news-view.html', 600, 400);
+            xadmin.open('查看新闻', '/html/news/news-view.html', 600, 400);
         }
 
     });
@@ -53,7 +53,7 @@ layui.use(['form', 'table', 'util'], function () {
             dataType: 'json',//java传递到前端的数据统一格式json
             success: function (res) {// Java后台给前端的返回信息，res就是返回的结果
                 console.log(res);
-                if (res.msg == "error") {
+                if (res.msg === "error") {
                     layer.msg("更新失败");
                 } else {
                     layer.msg("更新成功");

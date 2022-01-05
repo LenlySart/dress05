@@ -69,10 +69,10 @@ function getProductPageCount() {
 function setProductList(data) {
     let productList = '';
 
-    data.forEach(function (value, index) {
+    data.forEach(function (value) {
         // console.log( value);
         productList += '<div class="box">\n' +
-            '              <div><img src="' + value.imgHref + '"/></div>\n' +
+            '              <div onclick="goToDetail(' + value.id + ')"><img src="' + value.imgHref + '"/></div>\n' +
             '              <div class="in_texts" onclick="goToDetail(' + value.id + ')">' + value.name + '</div>\n' +
             '              <div class="in_text">\n' +
             '                     <div>价格：</div>\n' +
@@ -85,5 +85,5 @@ function setProductList(data) {
 
 function goToDetail(id) {
     sessionStorage.setItem("productId", id);
-    location.href("/dress/html/productDetail.html");
+    location.href="/dress/html/productDetail.html";
 }

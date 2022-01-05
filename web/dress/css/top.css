@@ -125,6 +125,10 @@ body>div>div{
     position: relative;
     top: 27%;
 }
+.sidebarPro:hover{
+    background-color: #DC1C4D;
+    cursor: pointer;
+}
 
 /*-------------------登录--------------------*/
 button, input{

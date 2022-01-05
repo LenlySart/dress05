@@ -10,7 +10,7 @@ function setNewsData(data) {
             $ = layui.jquery;
             let form = layui.form;
             console.log(data);
-            $('#title').html('产品名：'+data.title);
+            $('#title').html('标题：'+data.title);
             $('#content').html('内容：'+data.content);
             $("#nAbstract").val(data.nAbstract);
             $('#state').html('状态是否正常：'+(data.state == 1 ?'是':'否'));
