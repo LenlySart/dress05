@@ -5,9 +5,13 @@ import com.cn.wanxi.dao.company.impl.CompanyDaoImpl;
 import com.cn.wanxi.enums.ResultModel;
 import com.cn.wanxi.model.company.Company;
 import com.cn.wanxi.service.company.CompanyService;
+import com.cn.wanxi.util.Redis;
 import redis.clients.jedis.Jedis;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static com.cn.wanxi.util.Redis.*;
 
 /**
  * @author Dshzs月
@@ -24,7 +28,6 @@ public class CompanyServiceImpl implements CompanyService {
         Company company = new Company();
 //        创建一个redis对象
         Jedis jedis = new Jedis();
-        jedis.select(0);
         boolean isHave = jedis.exists("companyName");
         if (isHave) {
             company.setAddress(jedis.get("companyAddress"));
@@ -61,9 +64,23 @@ public class CompanyServiceImpl implements CompanyService {
     @Override
     public ResultModel getfindAll(Company company) {
         CompanyDao companyDao = new CompanyDaoImpl();
-        List<Company> list = companyDao.findAll(company);
+        String key = "company";
+        int index =0;
+        List list ;
+        boolean isHave = TempRedis(index).exists(key);
+//        判断redis中key有没有值
+        if (!isHave) {
+            //没有，从数据库中取
+            list = companyDao.findAll(company);
+            //将数据库读到的数据存入redis中
+            setRedis(list,key,index);
+            return ResultModel.getModel(list);
+        }
+        //如果有值从redis中取
+        list =  getRedis(new Company(), key,index);
         return ResultModel.getModel(list);
     }
+
 
     /**
      * 以id查询

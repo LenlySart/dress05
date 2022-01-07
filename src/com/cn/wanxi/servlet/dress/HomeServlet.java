@@ -2,6 +2,7 @@ package com.cn.wanxi.servlet.dress;
 
 import com.alibaba.fastjson.JSONObject;
 import com.cn.wanxi.enums.ResultModel;
+import com.cn.wanxi.model.company.Company;
 import com.cn.wanxi.service.company.CompanyService;
 import com.cn.wanxi.service.company.impl.CompanyServiceImpl;
 import com.cn.wanxi.service.dress.*;
@@ -36,7 +37,6 @@ public class HomeServlet extends HttpServlet {
         req.setCharacterEncoding("UTF-8");
         resp.setCharacterEncoding("UTF-8");
         resp.setContentType("text/html;charset=utf-8");
-        ResultModel resultModel = new ResultModel();
         HashMap map = new HashMap();
 
 //        首页导航和产品导航
@@ -46,7 +46,7 @@ public class HomeServlet extends HttpServlet {
 
 //        公司信息
         CompanyService companyService = new CompanyServiceImpl();
-        map.put("company", companyService.getCompanyModle());
+        map.put("company",  companyService.getCompanyModle());
 
         //产品展示选型
         ProductFeatureService productFeatureService = new ProductFeatureServiceImpl();
@@ -61,8 +61,8 @@ public class HomeServlet extends HttpServlet {
         map.put("newsList", newsService.getNewsModel());
 
         //将获取的值存进data中转发到前端页面
-        resultModel.setData(map);
 
-        resp.getWriter().println(JSONObject.toJSONString(resultModel));
+        resp.getWriter().println(JSONObject.toJSONString(ResultModel.getModel(map)));
+
     }
 }

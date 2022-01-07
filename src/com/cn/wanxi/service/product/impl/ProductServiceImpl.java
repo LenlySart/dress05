@@ -3,13 +3,17 @@ package com.cn.wanxi.service.product.impl;
 import com.cn.wanxi.dao.product.ProductDao;
 import com.cn.wanxi.dao.product.impl.ProductDaoImpl;
 import com.cn.wanxi.enums.ResultModel;
+import com.cn.wanxi.model.company.Company;
 import com.cn.wanxi.model.product.Product;
 import com.cn.wanxi.service.product.ProductService;
+import com.cn.wanxi.util.Redis;
 import com.cn.wanxi.util.Tool;
 import redis.clients.jedis.Jedis;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.cn.wanxi.util.Redis.*;
 
 /**
  * @author Dshzs月
@@ -48,7 +52,8 @@ public class ProductServiceImpl implements ProductService {
         Jedis jedis = new Jedis();
         //创建一个list集合
         List<Product> productList = new ArrayList<>();
-
+//        String key = "product";
+        int index = 2;
         //定义一个Integer类型的字段接收前端传过来的limit
         Integer limit = product.getPageNo();
         //判断Redis中是否有值，如果有从Redis取，没有从数据库中取
@@ -57,10 +62,12 @@ public class ProductServiceImpl implements ProductService {
                 productList = productDao.getProductList(product);
                 return ResultModel.getModel(count, productList);
             }
-            //查询Redis第三个数据库
-            jedis.select(2);
+
             //定义一个Boolean类型的字段接收Redis中的某个值用于判断
+            //查询Redis第三个数据库
+            jedis.select(index);
             boolean isHave = jedis.exists("productName");
+//            boolean isHave = jedis.exists(key);
             if (!isHave) {
                 productList = productDao.getProductList(product);
                 for (Product model :
@@ -88,18 +95,17 @@ public class ProductServiceImpl implements ProductService {
                 model.setTitle(productTitle.get(i));
                 productList.add(model);
             }
-
         } else {
             productList = productDao.getProductList(product);
         }
         return ResultModel.getModel(count, productList);
     }
 
-    private void Redis(int count){
-        if(count>0){
-            Jedis jedis  = new Jedis();
+    private void Redis(int count) {
+        if (count > 0) {
+            Jedis jedis = new Jedis();
             jedis.select(3);
-            jedis.del("newsTitle","newsContent","newsNAbstract","newsCreateTime");
+            jedis.del("newsTitle", "newsContent", "newsNAbstract", "newsCreateTime");
         }
     }
 

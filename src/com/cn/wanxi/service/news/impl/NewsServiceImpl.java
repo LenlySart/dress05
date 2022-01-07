@@ -6,6 +6,7 @@ import com.cn.wanxi.enums.ResultModel;
 import com.cn.wanxi.model.news.News;
 import com.cn.wanxi.model.product.Product;
 import com.cn.wanxi.service.news.NewsService;
+import com.cn.wanxi.util.Redis;
 import com.cn.wanxi.util.Tool;
 import redis.clients.jedis.Jedis;
 
@@ -95,11 +96,11 @@ public class NewsServiceImpl implements NewsService {
         return ResultModel.getModel(count);
     }
 
-    private void Redis(int count){
-        if(count>0){
-            Jedis jedis  = new Jedis();
+    private void Redis(int count) {
+        if (count > 0) {
+            Jedis jedis = new Jedis();
             jedis.select(3);
-            jedis.del("newsTitle","newsContent","newsNAbstract","newsCreateTime");
+            jedis.del("newsTitle", "newsContent", "newsNAbstract", "newsCreateTime");
         }
     }
 
@@ -111,51 +112,56 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public ResultModel getFindAll(News news) {
         NewsDao newsDao = new NewsDaoImpl();
-        int count = newsDao.getCountStatus(news);
+//        int count = newsDao.getCountStatus(news);
         //创建Redis对象
-        Jedis jedis = new Jedis();
+//        Jedis jedis = new Jedis();
         //创建一个list集合
-        List<News> list = new ArrayList<>();
+        List list;
+        String key = "news";
+        int index = 3;
         //定义一个Integer类型的字段接收前端传过来的limit
         Integer limit = news.getPageNo();
         //判断Redis中是否有值，如果有从Redis取，没有从数据库中取
         if (limit < 2) {
             if (news.getSortId() > 0) {
                 list = newsDao.FindAll(news);
-                return ResultModel.getModel(count, list);
+                return ResultModel.getModel( list);
             }
             //查询Redis第三个数据库
-            jedis.select(3);
+//            jedis.select(3);
             //定义一个Boolean类型的字段接收Redis中的某个值用于判断
-            boolean isHave = jedis.exists("newsTitle");
+//            boolean isHave = jedis.exists("newsTitle");
+            boolean isHave = Redis.TempRedis(index).exists(key);
             if (!isHave) {
                 list = newsDao.FindAll(news);
-                for (News model :
-                        list) {
-                    jedis.rpush("newsTitle", model.getTitle());
-                    jedis.rpush("newsContent", model.getContent());
-                    jedis.rpush("newsNAbstract", model.getnAbstract());
-                    jedis.rpush("newsCreateTime", model.getCreateTime());
-                }
-                return ResultModel.getModel(count, list);
+//                for (News model :
+//                        list) {
+//                    jedis.rpush("newsTitle", model.getTitle());
+//                    jedis.rpush("newsContent", model.getContent());
+//                    jedis.rpush("newsNAbstract", model.getnAbstract());
+//                    jedis.rpush("newsCreateTime", model.getCreateTime());
+//                }
+                Redis.setRedis(list,key,index);
+                return ResultModel.getModel(list);
             }
-            List<String> newsTitle = jedis.lrange("newsTitle", 0, -1);
-            List<String> newsContent = jedis.lrange("newsContent", 0, -1);
-            List<String> newsNAbstract = jedis.lrange("newsNAbstract", 0, -1);
-            List<String> newsCreateTime = jedis.lrange("newsCreateTime", 0, -1);
-            int length = newsTitle.size();
-            for (int i = 0; i < length; i++) {
-                News model = new News();
-                model.setTitle(newsTitle.get(i));
-                model.setContent(newsContent.get(i));
-                model.setnAbstract(newsNAbstract.get(i));
-                model.setCreateTime(newsCreateTime.get(i));
-                list.add(model);
-            }
+//            List<String> newsTitle = jedis.lrange("newsTitle", 0, -1);
+//            List<String> newsContent = jedis.lrange("newsContent", 0, -1);
+//            List<String> newsNAbstract = jedis.lrange("newsNAbstract", 0, -1);
+//            List<String> newsCreateTime = jedis.lrange("newsCreateTime", 0, -1);
+//            int length = newsTitle.size();
+//            for (int i = 0; i < length; i++) {
+//                News model = new News();
+//                model.setTitle(newsTitle.get(i));
+//                model.setContent(newsContent.get(i));
+//                model.setnAbstract(newsNAbstract.get(i));
+//                model.setCreateTime(newsCreateTime.get(i));
+//                list.add(model);
+//            }
+            list = Redis.getRedis(news, key, index);
         } else {
             list = newsDao.FindAll(news);
         }
-        return ResultModel.getModel(count, list);
+        return ResultModel.getModel(list);
     }
 
     /**

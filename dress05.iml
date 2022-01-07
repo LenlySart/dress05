@@ -21,5 +21,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 8.5.23" level="application_server_libraries" />
     <orderEntry type="library" name="activation" level="project" />
+    <orderEntry type="library" name="gson-2.8.0" level="project" />
   </component>
 </module>

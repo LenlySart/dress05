@@ -8,7 +8,7 @@ import com.cn.wanxi.model.company.Company;
  */
 public interface CompanyService {
 //    公司信息
-     Company getCompanyModle();
+    Company getCompanyModle();
 
     /**
      * 查询所有

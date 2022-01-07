@@ -12,6 +12,7 @@ function myAjax() {
         success: function (data) {
             console.log(data);
             setCompany(data.data.company);
+            // setCompany(data.data[0]);
             setNavs(data.data.navs);
             setProductFeature(data.data.productFeature);
             setMessage(data.data.sellerMessage);
